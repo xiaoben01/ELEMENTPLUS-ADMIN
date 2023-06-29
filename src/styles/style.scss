@@ -1,0 +1,25 @@
+/*
+ * @Description: 演示样式
+ * @Author: xiaoben(xiaoben0527@qq.com)
+ */
+@use './variable' as *;
+
+// 控制台
+.dashboard-demo {
+  padding: 15px;
+
+  .dashboard-item {
+    width: 100%;
+    display: block;
+    background-color: #fff;
+  }
+}
+
+/**
+  * @description: 夜简模式
+*/
+html.dark {
+  .dashboard-item {
+    background-color: #222;
+  }
+}
