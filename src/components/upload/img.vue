@@ -7,7 +7,7 @@
     <el-container>
       <el-header height="40px">
         <el-upload
-          action="https://upload-z2.qiniup.com"
+          action="/admin-api/file/upload"
           :show-file-list="false"
           :before-upload="handleBeforeUpload"
           :on-success="handleSuccess"
@@ -55,13 +55,7 @@
 
 <script setup lang="ts" name="uploadImg">
 import { onMounted, computed, ref } from 'vue';
-import {
-  getImglist,
-  saveImg,
-  delImg,
-  getToken,
-  getImgByIds
-} from '@/common/api';
+import { getImglist, delImg, getImgByIds } from '@/common/api';
 import Pagination from '@/components/pagination/index.vue';
 import { UploadRawFile, UploadProps, ElMessage } from 'element-plus';
 
@@ -92,7 +86,6 @@ const emit = defineEmits(['selected-img']);
  */
 const handleSuccess: UploadProps['onSuccess'] = async (response) => {
   // 上传API调用
-  await saveImg({ path: response.key });
   page.value = 1;
   getListData();
 };
@@ -100,27 +93,16 @@ const handleSuccess: UploadProps['onSuccess'] = async (response) => {
 /**
  * 限制用户上传文件的格式和大小
  */
-function handleBeforeUpload(file: UploadRawFile): Promise<boolean> | boolean {
+function handleBeforeUpload(file: UploadRawFile): boolean {
   if (file.size > 2 * 1048 * 1048) {
     ElMessage.warning('上传图片不能大于2M');
     return false;
   }
-  return new Promise((resolve, reject) => {
-    getToken()
-      .then((response) => {
-        upParma.value.token = response.data;
-        if (
-          ['image/png', 'image/jpeg', 'image/gif'].indexOf(file.type) === -1
-        ) {
-          ElMessage.warning('请上传正确的图片格式');
-          return false;
-        }
-        resolve(true);
-      })
-      .catch(() => {
-        reject(false);
-      });
-  });
+  if (['image/png', 'image/jpeg', 'image/gif'].indexOf(file.type) === -1) {
+    ElMessage.warning('请上传正确的图片格式');
+    return false;
+  }
+  return true;
 }
 /**
  * 清空选项

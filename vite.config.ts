@@ -5,6 +5,7 @@
 import { defineConfig, loadEnv } from 'vite';
 import { resolve } from 'path';
 import vue from '@vitejs/plugin-vue';
+import { viteMockServe } from 'vite-plugin-mock';
 import ElementPlus from 'unplugin-element-plus/vite';
 import Components from 'unplugin-vue-components/vite';
 import { ElementPlusResolver } from 'unplugin-vue-components/resolvers';
@@ -46,6 +47,17 @@ export default defineConfig(({ command, mode }) => {
         iconDirs: [resolve(process.cwd(), 'src/assets/icons')],
         // 指定symbolId格式
         symbolId: 'icon-[name]'
+      }),
+      viteMockServe({
+        ignore: /^\_/,
+        mockPath: './mock/source', // 解析，路径可根据实际变动
+        localEnabled: !isBuild, // 开发环境
+        prodEnabled: isBuild, // 生产环境设为true，也可以根据官方文档格式
+        injectCode: `import { setupProdMockServer } from '../mock'; setupProdMockServer();`, // 这个路径需要注意是在你要注入的文件下的引用路径
+        watchFiles: true, // 监听文件内容变更
+        supportTs: true, //打开后，可以读取 ts 文件模块。 请注意，打开后将无法监视.js 文件
+        logger: true, //是否在控制台显示请求日志
+        injectFile: resolve('./src/main.ts') // 在main.ts注册后需要在此处注入，否则可能报找不到setupProdMockServer的错误
       }),
       // 打包进度条
       progress({

@@ -65,7 +65,7 @@ const loginFormRef = ref<FormInstance>();
 
 const loginForm = reactive({
   username: 'admin',
-  password: '123123',
+  password: 'admin',
   verifyCode: ''
 });
 

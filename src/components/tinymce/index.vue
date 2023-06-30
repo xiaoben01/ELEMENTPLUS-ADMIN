@@ -30,7 +30,6 @@ import 'tinymce/plugins/fullscreen'; //全屏
 //接下来定义编辑器所需要的插件数据
 import { reactive, ref, onMounted, defineEmits, watch } from 'vue';
 // 因为图片上传到七牛云，数据路径需要拼接，所以需要引入七牛云的接口
-import { getQiniuUrl } from '@/common/api';
 const centerDialogVisible = ref(false);
 const emits = defineEmits(['get-content']);
 //这里我选择将数据定义在props里面，方便在不同的页面也可以配置出不同的编辑器，当然也可以直接在组件中直接定义
@@ -128,16 +127,10 @@ watch(
   }
 );
 //在onMounted中初始化编辑器
-const qiniuUrl = ref('');
 onMounted(async () => {
   tinymce.init({});
-  getQiniuData();
 });
 // 获取七牛云地址
-const getQiniuData = async (): Promise<any> => {
-  const resp = await getQiniuUrl();
-  qiniuUrl.value = resp.data;
-};
 const handle = (event: any): void => {
   // 防止同一页面引入多个编辑器时，出现多次执行的情况
   if (props.name === event.data.name) {
@@ -147,7 +140,7 @@ const handle = (event: any): void => {
     // 执行相关操作
     data.forEach((v: { path: any }) => {
       window.tinymce.activeEditor.insertContent(
-        `<img class="wscnph" src="` + qiniuUrl.value + `${v.path}" >`
+        `<img class="wscnph" src="` + `${v.path}" >`
       );
     });
     // 关闭弹窗
