@@ -22,7 +22,7 @@
             <el-form-item prop="username">
               <el-input placeholder="用户名" v-model="loginForm.username">
                 <template #prefix>
-                  <svg-icon icon="user-new-o" />
+                  <el-icon><User /></el-icon>
                 </template>
               </el-input>
             </el-form-item>
@@ -34,7 +34,7 @@
                 v-model="loginForm.password"
               >
                 <template #prefix>
-                  <svg-icon icon="lock-o" />
+                  <el-icon><Lock /></el-icon>
                 </template>
               </el-input>
             </el-form-item>

@@ -23,13 +23,13 @@
           </div>
         </div>
         <div class="user-arrow" :class="{ active }">
-          <svg-icon icon="arrow-bottom" size="12" />
+          <el-icon :size="14"><ArrowUp /></el-icon>
         </div>
       </div>
       <template #dropdown>
         <el-dropdown-menu>
           <el-dropdown-item divided @click="handleLogout">
-            <svg-icon class-name="svg-icon-right" icon="off" size="14" />
+            <el-icon :size="16"><SwitchButton /></el-icon>
             <span>安全退出</span>
           </el-dropdown-item>
         </el-dropdown-menu>

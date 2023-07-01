@@ -163,7 +163,7 @@ export default [
     }
   },
   {
-    url: '/admin-api/user/logout',
+    url: '/admin-api/logout',
     method: 'post',
     response: () => {
       return {

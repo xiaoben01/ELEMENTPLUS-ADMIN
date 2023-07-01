@@ -9,7 +9,6 @@ import { viteMockServe } from 'vite-plugin-mock';
 import ElementPlus from 'unplugin-element-plus/vite';
 import Components from 'unplugin-vue-components/vite';
 import { ElementPlusResolver } from 'unplugin-vue-components/resolvers';
-import { createSvgIconsPlugin } from 'vite-plugin-svg-icons';
 import progress from 'vite-plugin-progress';
 import eslint from 'vite-plugin-eslint';
 import viteCompression from 'vite-plugin-compression'; // 静态资源压缩
@@ -40,13 +39,6 @@ export default defineConfig(({ command, mode }) => {
       }),
       Components({
         resolvers: [ElementPlusResolver()]
-      }),
-      // 注册svg
-      createSvgIconsPlugin({
-        // 指定需要缓存的图标文件夹
-        iconDirs: [resolve(process.cwd(), 'src/assets/icons')],
-        // 指定symbolId格式
-        symbolId: 'icon-[name]'
       }),
       viteMockServe({
         ignore: /^\_/,

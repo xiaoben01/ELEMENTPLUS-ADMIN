@@ -10,7 +10,7 @@
       :class="{ active: sidebar.opened }"
       @click="handleToggleSideBar"
     >
-      <svg-icon icon="flexible" size="14" />
+      <el-icon :size="16"><Fold /></el-icon>
     </div>
     <!-- 面包屑 -->
     <header-breadcrumb v-if="showBreadcrumb" />
@@ -19,10 +19,13 @@
     <!-- 快捷设置功能图标 -->
     <div class="header-quick-wrapper">
       <div class="quick-icon" @click="handleSettingOpen">
-        <svg-icon icon="set-o" size="14" />
+        <el-icon :size="16">
+          <Setting />
+        </el-icon>
       </div>
+
       <div class="quick-icon" @click="handleReload" v-if="showRefresh">
-        <svg-icon icon="refresh" size="14" />
+        <el-icon :size="16"><Refresh /></el-icon>
       </div>
     </div>
   </div>

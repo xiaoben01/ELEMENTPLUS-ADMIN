@@ -87,9 +87,7 @@
     }
 
     // 图标
-    .el-icon,
-    .vus-icon,
-    .svg-icon {
+    .el-icon {
       width: 0.875rem;
       height: 0.875rem;
       font-size: 0.875rem;
@@ -455,9 +453,7 @@
           display: inline-flex;
           align-items: center;
 
-          .el-icon,
-          .vus-icon,
-          .svg-icon {
+          .el-icon {
             width: 0.75rem;
             height: 0.75rem;
             font-size: 0.75rem;
@@ -634,12 +630,6 @@
           align-items: center;
           justify-content: center;
 
-          .svg-icon {
-            transition: all 280ms ease-in-out;
-            transform: scale(0.8);
-            color: var(--vus-admin-header-user-icon-color);
-          }
-
           &.active {
             svg {
               transform: scale(0.8) rotate(180deg);
@@ -675,9 +665,7 @@
         padding: 0 !important;
         justify-content: center;
 
-        .el-icon,
-        .vus-icon,
-        .svg-icon {
+        .el-icon {
           margin-right: 0;
         }
       }
@@ -691,9 +679,7 @@
         padding: 0 !important;
         justify-content: center;
 
-        .el-icon,
-        .vus-icon,
-        .svg-icon {
+        .el-icon {
           margin-right: 0;
         }
 
@@ -797,9 +783,7 @@
     background-size: cover;
 
     // 图标
-    .el-icon,
-    .vus-icon,
-    .svg-icon {
+    .el-icon {
       width: 0.875rem;
       height: 0.875rem;
       font-size: 0.875rem;
@@ -960,10 +944,6 @@
  * 全局样式定义
  *------------------------------
 */
-// 图标右侧距离
-.svg-icon-right {
-  margin-right: 0.3125rem;
-}
 
 // 公共索引
 .z-index-0 {

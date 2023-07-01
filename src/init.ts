@@ -14,9 +14,6 @@ import loadDirective from '@/common/directive';
 // 引入全局样式
 import '@/styles/index.scss';
 
-// 引入svg-icons注册脚本
-import 'virtual:svg-icons-register';
-
 // 访问许可(路由守卫)
 import '@/router/permission';
 

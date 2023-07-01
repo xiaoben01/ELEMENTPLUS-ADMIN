@@ -26,13 +26,13 @@
           <!-- 标题 -->
           <span class="tags-text">{{ tag.title }}</span>
           <!-- 关闭按钮 -->
-          <span
+          <el-icon
             class="tags-close"
             v-if="!isAffix(tag)"
             @click.prevent.stop="closeSelectedTag(tag)"
           >
-            <svg-icon icon="close" size="8" />
-          </span>
+            <Close />
+          </el-icon>
         </router-link>
       </scroll-pane>
     </div>

@@ -8,7 +8,7 @@
       <div class="setting-title-wrapper" ref="settingTitleRef">
         <span>偏好设置</span>
         <div class="title-icon" @click="handleClose">
-          <svg-icon icon="close" size="14" />
+          <el-icon :size="16"><Close /></el-icon>
         </div>
       </div>
       <div
@@ -68,7 +68,7 @@
                   <span>显示标签图标</span>
                   <el-tooltip content="标签开启时生效" placement="top">
                     <span class="setting-form-help-icon">
-                      <svg-icon icon="help-o" />
+                      <el-icon><Warning /></el-icon>
                     </span>
                   </el-tooltip>
                 </template>

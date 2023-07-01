@@ -24,7 +24,6 @@
     "types": [
       "vite/client",
       "element-plus/global",
-      "vite-plugin-svg-icons/client"
     ],
   },
   "include": [

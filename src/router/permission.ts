@@ -2,7 +2,6 @@
  * @Description: 请求许可(路由守卫)
  * @Author: xiaoben(xiaoben0527@qq.com)
  */
-// import { RouteRecordRaw } from 'vue-router';
 import NProgress from 'nprogress';
 import { ElMessage } from 'element-plus';
 import router from '@/router';
@@ -25,7 +24,6 @@ router.beforeEach(async (to, from, next) => {
   const token = user().token;
   // 进度条开始
   settings().showProgress && NProgress.start();
-
   // 校验是否已登录、token是否存在
   if (token) {
     // 如果是登录页
