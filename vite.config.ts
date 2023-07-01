@@ -131,7 +131,7 @@ export default defineConfig(({ command, mode }) => {
       // 将监听所有地址，包括局域网和公网地址
       host: true,
       // 服务器端口号
-      port: 1995,
+      port: 1997,
       // 设为 true 时若端口已被占用则会直接退出，而不是尝试下一个可用端口。
       strictPort: false,
       proxy: {
