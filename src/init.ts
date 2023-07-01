@@ -6,7 +6,6 @@
 import type { App } from 'vue';
 import { createPinia } from 'pinia';
 import router from '@/router';
-import loadComponent from '@/components';
 import loadDirective from '@/common/directive';
 // 如果需要使用el-icon需要安装：npm i @element-plus/icons-vue
 // import * as ElementPlusIconsVue from '@element-plus/icons-vue';
@@ -24,8 +23,6 @@ export default async function init(app: App<Element>): Promise<any> {
   // }
   // 注册全局指令
   loadDirective(app);
-  // 注册全局组件
-  loadComponent(app);
   // 状态管理
   app.use(createPinia());
   // 路由

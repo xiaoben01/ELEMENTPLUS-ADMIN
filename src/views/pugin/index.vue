@@ -86,19 +86,22 @@ const centerDialogVisible = ref(false);
 const centerDialogVisible1 = ref(false);
 // 获取formSize状态
 const size = computed(() => settings().formSize);
-
+interface Image {
+  id: number;
+  path: string;
+}
 interface Form {
   shareImg: number;
   shareImgPath: string;
-  shareImg1: number;
-  shareImgPath1: string;
+  shareImg1: string;
+  shareImgPath1: Image[];
 }
 // 定义表单数据
 const form = reactive<Form>({
   shareImg: 0,
   shareImgPath: '',
-  shareImg1: 0,
-  shareImgPath1: ''
+  shareImg1: '',
+  shareImgPath1: []
 });
 const selectedImg = (
   data: any,
@@ -125,7 +128,7 @@ const delImgIng = (id: string | number, name: string, paths: string): void => {
 };
 </script>
 <style lang="scss" scoped>
-::v-deep .el-form-item__content {
+:deep(.el-form-item__content) {
   /* Your styles here */
   display: block;
 }
