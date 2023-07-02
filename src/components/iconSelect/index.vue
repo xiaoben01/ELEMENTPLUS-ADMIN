@@ -131,10 +131,6 @@ onMounted(() => {
 </script>
 
 <style scoped lang="scss">
-.el-divider--horizontal {
-  margin: 10px auto !important;
-}
-
 .iconselect-container {
   position: relative;
   width: 400px;
