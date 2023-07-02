@@ -11,9 +11,9 @@
       <!-- 菜单组件 -->
       <el-menu
         mode="vertical"
-        text-color="var(--vus-admin-sidebar-menu-text-color)"
-        active-text-color="var(--vus-admin-sidebar-menu-text-active-color)"
-        background-color="var(--vus-admin-sidebar-menu-bg-color)"
+        text-color="var(--elementPlus-admin-admin-sidebar-menu-text-color)"
+        active-text-color="var(--elementPlus-admin-admin-sidebar-menu-text-active-color)"
+        background-color="var(--elementPlus-admin-admin-sidebar-menu-bg-color)"
         :unique-opened="false"
         :collapse-transition="false"
         :collapse="isCollapse"

@@ -11,7 +11,7 @@
 }
 a {
   outline: 0;
-  color: var(--vus-admin-color-base);
+  color: var(--elementPlus-admin-admin-color-base);
   text-decoration: none;
   background-color: transparent;
   -webkit-text-decoration-skip: objects;
@@ -25,7 +25,7 @@ a[href] {
   cursor: pointer;
 }
 a[href]:hover {
-  color: var(--vus-admin-color-primary);
+  color: var(--elementPlus-admin-admin-color-primary);
 }
 a[href].underline:hover {
   text-decoration: underline;
@@ -118,11 +118,11 @@ body {
   height: 100%;
 }
 body {
-  font-family: var(--vus-admin-family-base);
-  font-size: var(--vus-admin-font-size-base);
-  font-weight: var(--vus-admin-font-weight-base);
-  background-color: var(--vus-admin-bg-page);
-  color: var(--vus-admin-color-base);
+  font-family: var(--elementPlus-admin-admin-family-base);
+  font-size: var(--elementPlus-admin-admin-font-size-base);
+  font-weight: var(--elementPlus-admin-admin-font-weight-base);
+  background-color: var(--elementPlus-admin-admin-bg-page);
+  color: var(--elementPlus-admin-admin-color-base);
   line-height: 1.5;
   text-align: left;
   overflow-x: hidden;

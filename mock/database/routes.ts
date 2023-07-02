@@ -111,5 +111,24 @@ export default [
     noTags: 0,
     open: 0,
     redirect: ''
+  },
+  {
+    id: 2004,
+    parentId: 2000,
+    sort: 4,
+    path: 'IconSelect',
+    component: 'pugin/iconSelect',
+    name: 'PuginIconSelect',
+    title: '图标选择器',
+    icon: '',
+    activeMenu: '',
+    affix: 0,
+    alwaysShow: 0,
+    breadcrumb: 1,
+    hidden: 0,
+    noCache: 0,
+    noTags: 0,
+    open: 0,
+    redirect: ''
   }
 ];

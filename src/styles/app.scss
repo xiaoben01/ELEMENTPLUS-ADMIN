@@ -17,7 +17,7 @@
     width: 100%;
     height: 100%;
     opacity: 0.6;
-    background-color: var(--vus-admin-mask-bg-color);
+    background-color: var(--elementPlus-admin-admin-mask-bg-color);
     backdrop-filter: blur(0.625rem);
     position: fixed;
     left: 0;
@@ -36,7 +36,7 @@
    * @description: 侧边导航菜单
    */
   .app-sidebar {
-    width: var(--vus-admin-sidebar-max-width);
+    width: var(--elementPlus-admin-admin-sidebar-max-width);
     height: 100%;
     position: fixed;
     top: 0;
@@ -44,8 +44,8 @@
     bottom: 0;
     z-index: 1001;
     overflow: hidden;
-    background-color: var(--vus-admin-sidebar-bg-color);
-    background-image: var(--vus-admin-sidebar-bg-img);
+    background-color: var(--elementPlus-admin-admin-sidebar-bg-color);
+    background-image: var(--elementPlus-admin-admin-sidebar-bg-img);
     background-position: center;
     background-repeat: no-repeat;
     background-size: cover;
@@ -79,7 +79,7 @@
     }
 
     // 标题文字超出隐藏
-    .vus-title {
+    .elementPlus-admin-title {
       max-width: 98%;
       overflow: hidden;
       text-overflow: ellipsis;
@@ -94,7 +94,7 @@
       margin-right: 0.5rem;
       text-align: center;
 
-      + .vus-title {
+      + .elementPlus-admin-title {
         max-width: calc(98% - 1.375rem);
       }
     }
@@ -120,24 +120,30 @@
     .submenu-title-noDropdown,
     .el-sub-menu__title {
       &:hover {
-        background-color: var(--vus-admin-sidebar-menu-hover-color) !important;
+        background-color: var(
+          --elementPlus-admin-admin-sidebar-menu-hover-color
+        ) !important;
       }
     }
 
     // 激活的子级菜单其父级的文本颜色
     .is-active > .el-sub-menu__title {
-      color: var(--vus-admin-sidebar-sub-menu-text-active-color) !important;
+      color: var(
+        --elementPlus-admin-admin-sidebar-sub-menu-text-active-color
+      ) !important;
     }
 
     // 子级菜单
     & .nest-menu .el-sub-menu > .el-sub-menu__title,
     & .el-sub-menu .el-menu-item {
-      min-width: var(--vus-admin-sidebar-max-width) !important;
-      background-color: var(--vus-admin-sidebar-sub-menu-bg-color) !important;
+      min-width: var(--elementPlus-admin-admin-sidebar-max-width) !important;
+      background-color: var(
+        --elementPlus-admin-admin-sidebar-sub-menu-bg-color
+      ) !important;
 
       &:hover {
         background-color: var(
-          --vus-admin-sidebar-sub-menu-hover-color
+          --elementPlus-admin-admin-sidebar-sub-menu-hover-color
         ) !important;
       }
     }
@@ -145,13 +151,14 @@
     // logo
     .logo-wrapper {
       width: 100%;
-      height: var(--vus-admin-sidebar-logo-height);
+      height: var(--elementPlus-admin-admin-sidebar-logo-height);
       padding: 0.625rem;
       position: relative;
       text-align: center;
       overflow: hidden;
-      background-color: var(--vus-admin-sidebar-logo-bg-color);
-      border-bottom: 0.0625rem solid var(--vus-admin-sidebar-logo-border-color);
+      background-color: var(--elementPlus-admin-admin-sidebar-logo-bg-color);
+      border-bottom: 0.0625rem solid
+        var(--elementPlus-admin-admin-sidebar-logo-border-color);
 
       .logo-link {
         width: 100%;
@@ -175,7 +182,7 @@
         line-height: 1.875rem;
         font-size: 1.125rem;
         font-weight: 600;
-        color: var(--vus-admin-sidebar-logo-text-color);
+        color: var(--elementPlus-admin-admin-sidebar-logo-text-color);
         display: block;
         overflow: hidden;
         text-overflow: ellipsis;
@@ -188,7 +195,7 @@
     &.has-logo {
       .el-scrollbar {
         // logo容器高度与header高度一致 50px
-        height: calc(100% - var(--vus-admin-sidebar-logo-height));
+        height: calc(100% - var(--elementPlus-admin-admin-sidebar-logo-height));
       }
     }
   }
@@ -198,11 +205,12 @@
    */
   .app-header {
     width: 100%;
-    height: var(--vus-admin-header-height);
+    height: var(--elementPlus-admin-admin-header-height);
     overflow: hidden;
     position: relative;
-    background-color: var(--vus-admin-header-bg-color);
-    box-shadow: 0 0.0625rem 0.1875rem var(--vus-admin-header-box-shadow-color);
+    background-color: var(--elementPlus-admin-admin-header-bg-color);
+    box-shadow: 0 0.0625rem 0.1875rem
+      var(--elementPlus-admin-admin-header-box-shadow-color);
 
     // 申缩左侧菜单按钮
     .header-menu-icon {
@@ -214,10 +222,12 @@
       justify-content: center;
       transition: all 280ms;
       cursor: pointer;
-      color: var(--vus-admin-header-collapse-text-color);
+      color: var(--elementPlus-admin-admin-header-collapse-text-color);
 
       &:hover {
-        background-color: var(--vus-admin-header-collapse-hover-color);
+        background-color: var(
+          --elementPlus-admin-admin-header-collapse-hover-color
+        );
       }
 
       &.active {
@@ -240,11 +250,11 @@
         justify-content: center;
         transition: all 280ms;
         cursor: pointer;
-        color: var(--vus-admin-header-setting-text-color);
+        color: var(--elementPlus-admin-admin-header-setting-text-color);
 
         &:hover {
           opacity: 0.8;
-          color: var(--vus-admin-header-setting-text-hover-color);
+          color: var(--elementPlus-admin-admin-header-setting-text-hover-color);
         }
       }
     }
@@ -255,13 +265,13 @@
    */
   .app-main-wrapper {
     min-height: 100vh;
-    margin-left: var(--vus-admin-sidebar-max-width);
+    margin-left: var(--elementPlus-admin-admin-sidebar-max-width);
     position: relative;
     transition: margin-left 280ms;
 
     // 浮动header栏
     .has-fixed-header {
-      width: calc(100% - var(--vus-admin-sidebar-max-width));
+      width: calc(100% - var(--elementPlus-admin-admin-sidebar-max-width));
       position: fixed;
       top: 0;
       right: 0;
@@ -269,7 +279,7 @@
       transition: width 280ms;
 
       + .app-main {
-        padding-top: var(--vus-admin-header-height);
+        padding-top: var(--elementPlus-admin-admin-header-height);
       }
     }
 
@@ -277,16 +287,16 @@
     &.has-header-tags {
       .app-header {
         box-shadow: 0 0.0625rem 0.0625rem
-          var(--vus-admin-header-box-shadow-color);
+          var(--elementPlus-admin-admin-header-box-shadow-color);
       }
 
       .app-main {
         /* 84 = header + tags = 50 + 34 */
-        // min-height: calc(100vh - var(--vus-admin-header-tags-height));
+        // min-height: calc(100vh - var(--elementPlus-admin-admin-header-tags-height));
       }
 
       .has-fixed-header + .app-main {
-        padding-top: var(--vus-admin-header-tags-height);
+        padding-top: var(--elementPlus-admin-admin-header-tags-height);
       }
     }
   }
@@ -298,7 +308,7 @@
     width: 100%;
     height: 100vh;
     // 窗口可视高度 - header高度 50px
-    // min-height: calc(100vh - var(--vus-admin-header-height));
+    // min-height: calc(100vh - var(--elementPlus-admin-admin-header-height));
     position: relative;
   }
 
@@ -312,7 +322,7 @@
     white-space: nowrap;
 
     &.el-breadcrumb {
-      line-height: var(--vus-admin-header-height);
+      line-height: var(--elementPlus-admin-admin-header-height);
       display: inline-block;
       font-size: 0.875rem;
       padding-left: 0.5rem;
@@ -329,21 +339,21 @@
 
       // 分隔符
       .el-breadcrumb__separator {
-        color: var(--vus-admin-breadcrumb-separator-color);
+        color: var(--elementPlus-admin-admin-breadcrumb-separator-color);
       }
 
       // 无链接的文本
       .no-redirect {
-        color: var(--vus-admin-breadcrumb-text-color);
+        color: var(--elementPlus-admin-admin-breadcrumb-text-color);
         cursor: text;
       }
 
       // 有链接的文本
       .el-breadcrumb__inner a {
-        color: var(--vus-admin-breadcrumb-link-color);
+        color: var(--elementPlus-admin-admin-breadcrumb-link-color);
 
         &:hover {
-          color: var(--vus-admin-breadcrumb-link-hover-color);
+          color: var(--elementPlus-admin-admin-breadcrumb-link-hover-color);
         }
       }
     }
@@ -361,8 +371,10 @@
     right: 0;
     z-index: 2000;
     box-shadow: 0 0 1.875rem
-      var(--vus-admin-header-setting-drawer-box-shadow-color);
-    background-color: var(--vus-admin-header-setting-drawer-bg-color);
+      var(--elementPlus-admin-admin-header-setting-drawer-box-shadow-color);
+    background-color: var(
+      --elementPlus-admin-admin-header-setting-drawer-bg-color
+    );
     -webkit-overflow-scrolling: touch;
 
     .setting-title-wrapper {
@@ -370,7 +382,7 @@
       display: flex;
       align-items: center;
       justify-content: space-between;
-      color: var(--vus-admin-header-setting-drawer-title-color);
+      color: var(--elementPlus-admin-admin-header-setting-drawer-title-color);
 
       .title-icon {
         cursor: pointer;
@@ -402,9 +414,10 @@
   //  tags容器
   .app-tags-wrapper {
     width: 100%;
-    height: var(--vus-admin-tags-height);
-    background-color: var(--vus-admin-tags-bg-color);
-    box-shadow: 0 0.0625rem 0.1875rem var(--vus-admin-tags-box-shadow-color);
+    height: var(--elementPlus-admin-admin-tags-height);
+    background-color: var(--elementPlus-admin-admin-tags-bg-color);
+    box-shadow: 0 0.0625rem 0.1875rem
+      var(--elementPlus-admin-admin-tags-box-shadow-color);
 
     .tags-scroll-pane-container {
       position: relative;
@@ -417,9 +430,10 @@
         position: relative;
         cursor: pointer;
         border-radius: 0.125rem;
-        background-color: var(--vus-admin-tags-item-bg-color);
-        border: 0.0625rem solid var(--vus-admin-tags-item-border-color);
-        color: var(--vus-admin-tags-item-text-color);
+        background-color: var(--elementPlus-admin-admin-tags-item-bg-color);
+        border: 0.0625rem solid
+          var(--elementPlus-admin-admin-tags-item-border-color);
+        color: var(--elementPlus-admin-admin-tags-item-text-color);
         padding: 0 0.5rem;
         font-size: 0.75rem;
         margin-left: 0.3125rem;
@@ -436,15 +450,23 @@
         }
 
         &:hover {
-          color: var(--vus-admin-tags-item-text-hover-color);
-          border-color: var(--vus-admin-tags-item-border-hover-color);
-          background-color: var(--vus-admin-tags-item-bg-hover-color);
+          color: var(--elementPlus-admin-admin-tags-item-text-hover-color);
+          border-color: var(
+            --elementPlus-admin-admin-tags-item-border-hover-color
+          );
+          background-color: var(
+            --elementPlus-admin-admin-tags-item-bg-hover-color
+          );
         }
 
         &.active {
-          color: var(--vus-admin-tags-item-text-active-color);
-          border-color: var(--vus-admin-tags-item-border-active-color);
-          background-color: var(--vus-admin-tags-item-bg-active-color);
+          color: var(--elementPlus-admin-admin-tags-item-text-active-color);
+          border-color: var(
+            --elementPlus-admin-admin-tags-item-border-active-color
+          );
+          background-color: var(
+            --elementPlus-admin-admin-tags-item-bg-active-color
+          );
         }
 
         // 图标
@@ -488,8 +510,12 @@
           }
 
           &:hover {
-            color: var(--vus-admin-tags-item-close-text-hover-color);
-            background-color: var(--vus-admin-tags-item-close-bg-hover-color);
+            color: var(
+              --elementPlus-admin-admin-tags-item-close-text-hover-color
+            );
+            background-color: var(
+              --elementPlus-admin-admin-tags-item-close-bg-hover-color
+            );
           }
         }
 
@@ -536,10 +562,12 @@
       border-radius: 0.25rem;
       font-size: 0.875rem;
       font-weight: 400;
-      color: var(--vus-admin-tags-context-menu-text-color);
-      background-color: var(--vus-admin-tags-context-menu-bg-color);
+      color: var(--elementPlus-admin-admin-tags-context-menu-text-color);
+      background-color: var(
+        --elementPlus-admin-admin-tags-context-menu-bg-color
+      );
       box-shadow: 0 0.0625rem 0.25rem
-        var(--vus-admin-tags-context-menu-box-shadow-color);
+        var(--elementPlus-admin-admin-tags-context-menu-box-shadow-color);
 
       li {
         margin: 0;
@@ -548,8 +576,12 @@
         transition: all ease-in 200ms;
 
         &:hover {
-          color: var(--vus-admin-tags-context-menu-text-hover-color);
-          background-color: var(--vus-admin-tags-context-menu-item-hover-color);
+          color: var(
+            --elementPlus-admin-admin-tags-context-menu-text-hover-color
+          );
+          background-color: var(
+            --elementPlus-admin-admin-tags-context-menu-item-hover-color
+          );
         }
       }
     }
@@ -564,7 +596,7 @@
     transition: background 280ms;
 
     &:hover {
-      background-color: var(--vus-admin-header-user-hover-color);
+      background-color: var(--elementPlus-admin-admin-header-user-hover-color);
     }
 
     .user-info-dropdown {
@@ -606,7 +638,7 @@
             overflow: hidden;
             white-space: nowrap;
             text-overflow: ellipsis;
-            color: var(--vus-admin-header-user-name-text-color);
+            color: var(--elementPlus-admin-admin-header-user-name-text-color);
           }
 
           .user-role {
@@ -616,7 +648,7 @@
             overflow: hidden;
             white-space: nowrap;
             text-overflow: ellipsis;
-            color: var(--vus-admin-header-user-role-text-color);
+            color: var(--elementPlus-admin-admin-header-user-role-text-color);
           }
         }
 
@@ -645,14 +677,14 @@
    */
   &.hideSidebar {
     .app-sidebar {
-      width: var(--vus-admin-sidebar-min-width) !important;
+      width: var(--elementPlus-admin-admin-sidebar-min-width) !important;
     }
 
     .app-main-wrapper {
-      margin-left: var(--vus-admin-sidebar-min-width);
+      margin-left: var(--elementPlus-admin-admin-sidebar-min-width);
 
       .has-fixed-header {
-        width: calc(100% - var(--vus-admin-sidebar-min-width));
+        width: calc(100% - var(--elementPlus-admin-admin-sidebar-min-width));
       }
     }
 
@@ -694,7 +726,7 @@
     .el-menu--collapse {
       .el-sub-menu {
         & > .el-sub-menu__title {
-          & > .vus-title {
+          & > .elementPlus-admin-title {
             width: 0;
             height: 0;
             overflow: hidden;
@@ -706,15 +738,17 @@
 
       // 子菜单最小宽度
       .el-menu .el-sub-menu {
-        min-width: var(--vus-admin-sidebar-max-width) !important;
+        min-width: var(--elementPlus-admin-admin-sidebar-max-width) !important;
       }
 
       // 激活的子级菜单其父级的文本颜色
       .is-active.el-menu-item,
       .is-active > .el-sub-menu__title {
-        color: var(--vus-admin-sidebar-menu-text-active-color) !important;
+        color: var(
+          --elementPlus-admin-admin-sidebar-menu-text-active-color
+        ) !important;
         background-color: var(
-          --vus-admin-sidebar-sub-menu-bg-active-color
+          --elementPlus-admin-admin-sidebar-sub-menu-bg-active-color
         ) !important;
       }
     }
@@ -725,7 +759,7 @@
    */
   &.mobile {
     .app-sidebar {
-      width: var(--vus-admin-sidebar-max-width) !important;
+      width: var(--elementPlus-admin-admin-sidebar-max-width) !important;
       transition: transform 280ms;
     }
 
@@ -747,7 +781,7 @@
         pointer-events: none;
         transition-duration: 300ms;
         transform: translate3d(
-          calc(-1 * var(--vus-admin-sidebar-max-width)),
+          calc(-1 * var(--elementPlus-admin-admin-sidebar-max-width)),
           0,
           0
         );
@@ -756,7 +790,8 @@
 
     &.openSidebar {
       .app-sidebar {
-        box-shadow: 0 0 1.875rem var(--vus-admin-sidebar-box-shadow-color);
+        box-shadow: 0 0 1.875rem
+          var(--elementPlus-admin-admin-sidebar-box-shadow-color);
       }
     }
   }
@@ -776,8 +811,8 @@
  */
 .el-menu--vertical {
   & > .el-menu {
-    background-color: var(--vus-admin-sidebar-bg-color);
-    background-image: var(--vus-admin-sidebar-bg-img);
+    background-color: var(--elementPlus-admin-admin-sidebar-bg-color);
+    background-image: var(--elementPlus-admin-admin-sidebar-bg-img);
     background-position: top center;
     background-repeat: no-repeat;
     background-size: cover;
@@ -796,7 +831,9 @@
   .nest-menu .el-sub-menu > .el-sub-menu__title,
   .el-menu-item {
     &:hover {
-      background-color: var(--vus-admin-sidebar-menu-hover-color) !important;
+      background-color: var(
+        --elementPlus-admin-admin-sidebar-menu-hover-color
+      ) !important;
     }
   }
 
@@ -807,7 +844,9 @@
 
     // 滚动条美化
     &::-webkit-scrollbar-track-piece {
-      background-color: var(--vus-admin-sidebar-sub-menu-track-piece-color);
+      background-color: var(
+        --elementPlus-admin-admin-sidebar-sub-menu-track-piece-color
+      );
     }
 
     &::-webkit-scrollbar {
@@ -815,7 +854,9 @@
     }
 
     &::-webkit-scrollbar-thumb {
-      background-color: var(--vus-admin-sidebar-sub-menu-thumb-color);
+      background-color: var(
+        --elementPlus-admin-admin-sidebar-sub-menu-thumb-color
+      );
       border-radius: 1.25rem;
     }
   }
@@ -833,8 +874,8 @@
   left: 0;
   right: 0;
   bottom: 0;
-  background-color: var(--vus-admin-login-bg-color);
-  background-image: var(--vus-admin-login-bg-img);
+  background-color: var(--elementPlus-admin-admin-login-bg-color);
+  background-image: var(--elementPlus-admin-admin-login-bg-img);
   background-position: top center;
   background-repeat: no-repeat;
   background-size: cover;
@@ -851,9 +892,9 @@
   }
 
   .login-wrapper {
-    width: var(--vus-admin-login-wrapper-width);
-    max-width: var(--vus-admin-login-wrapper-max-width);
-    padding: var(--vus-admin-login-wrapper-padding);
+    width: var(--elementPlus-admin-admin-login-wrapper-width);
+    max-width: var(--elementPlus-admin-admin-login-wrapper-max-width);
+    padding: var(--elementPlus-admin-admin-login-wrapper-padding);
     position: relative;
   }
 
@@ -875,43 +916,47 @@
     .title-text {
       font-weight: 600;
       font-size: 1.5rem;
-      color: var(--vus-admin-login-title-text-color);
+      color: var(--elementPlus-admin-admin-login-title-text-color);
     }
   }
 
   .login-form {
     width: 100%;
     height: 100%;
-    padding: var(--vus-admin-login-form-padding);
-    border-radius: var(--vus-admin-login-form-radius);
-    box-shadow: var(--vus-admin-login-form-box-shadow);
+    padding: var(--elementPlus-admin-admin-login-form-padding);
+    border-radius: var(--elementPlus-admin-admin-login-form-radius);
+    box-shadow: var(--elementPlus-admin-admin-login-form-box-shadow);
     position: relative;
-    background-color: var(--vus-admin-login-form-bg-color);
-    background-image: var(--vus-admin-login-form-bg-img);
+    background-color: var(--elementPlus-admin-admin-login-form-bg-color);
+    background-image: var(--elementPlus-admin-admin-login-form-bg-img);
     background-position: top center;
     background-repeat: no-repeat;
     background-size: cover;
 
     // 自定义输入框样式
     .el-input {
-      --el-input-text-color: var(--vus-admin-login-input-text-color);
-      --el-input-bg-color: var(--vus-admin-login-input-bg-color);
-      --el-input-border-color: var(--vus-admin-login-input-border-color);
+      --el-input-text-color: var(
+        --elementPlus-admin-admin-login-input-text-color
+      );
+      --el-input-bg-color: var(--elementPlus-admin-admin-login-input-bg-color);
+      --el-input-border-color: var(
+        --elementPlus-admin-admin-login-input-border-color
+      );
       --el-input-hover-border-color: var(
-        --vus-admin-login-input-hover-border-color
+        --elementPlus-admin-admin-login-input-hover-border-color
       );
       --el-text-color-placeholder: var(
-        --vus-admin-login-input-placeholder-color
+        --elementPlus-admin-admin-login-input-placeholder-color
       );
 
       .el-input__prefix {
-        color: var(--vus-admin-login-input-prefix-color);
+        color: var(--elementPlus-admin-admin-login-input-prefix-color);
       }
 
       .el-input__clear,
       .el-input__password,
       .el-input__suffix {
-        color: var(--vus-admin-login-input-suffix-color);
+        color: var(--elementPlus-admin-admin-login-input-suffix-color);
       }
     }
 

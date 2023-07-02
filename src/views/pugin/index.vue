@@ -3,7 +3,7 @@
  * @Author: xiaoben(xiaoben0527@qq.com)
 -->
 <template>
-  <div class="vus-h-100">
+  <div class="elementPlus-admin-h-100">
     <div class="main-page">
       <el-card class="box-card">
         <el-form

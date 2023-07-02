@@ -4,11 +4,11 @@
 -->
 <template>
   <div
-    class="vus-pa-50 vus-h-100 app-flex app-flex-items-center app-flex-justify-center column"
+    class="elementPlus-admin-pa-50 elementPlus-admin-h-100 app-flex app-flex-items-center app-flex-justify-center column"
   >
-    <div class="vus-fs-100 vus-fw-700">404</div>
-    <div class="vus-fs-18">出错啦！你访问的页面不存在~~~</div>
-    <div class="vus-pt-15">
+    <div class="elementPlus-admin-fs-100 elementPlus-admin-fw-700">404</div>
+    <div class="elementPlus-admin-fs-18">出错啦！你访问的页面不存在~~~</div>
+    <div class="elementPlus-admin-pt-15">
       <el-button @click="handleBack">返回首页</el-button>
     </div>
   </div>

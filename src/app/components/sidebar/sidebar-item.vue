@@ -28,7 +28,7 @@
           </template>
           <!-- 标题 -->
           <template #title v-if="onlyOneChild.meta.title">
-            <span class="vus-title">
+            <span class="elementPlus-admin-title">
               {{ onlyOneChild.meta.title }}
             </span>
           </template>
@@ -51,7 +51,7 @@
             </el-icon>
           </template>
           <!-- 标题 -->
-          <span class="vus-title" v-if="item.meta.title">
+          <span class="elementPlus-admin-title" v-if="item.meta.title">
             {{ item.meta.title }}
           </span>
         </template>
