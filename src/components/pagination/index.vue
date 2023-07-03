@@ -18,7 +18,7 @@
   </div>
 </template>
 
-<script setup lang="ts" name="Pagination">
+<script setup lang="ts">
 import { computed } from 'vue';
 const props = defineProps({
   page: { type: Number, default: 1 },
@@ -48,13 +48,13 @@ const curPage = computed({
   }
 });
 
-function handleSizeChange(): void {
+const handleSizeChange = function (): void {
   emit('pagination');
-}
+};
 
-function handleCurrentChange(): void {
+const handleCurrentChange = function (): void {
   emit('pagination');
-}
+};
 </script>
 
 <style scoped lang="scss">

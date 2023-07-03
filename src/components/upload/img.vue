@@ -53,7 +53,7 @@
   </div>
 </template>
 
-<script setup lang="ts" name="uploadImg">
+<script setup lang="ts">
 import { onMounted, computed, ref } from 'vue';
 import { getImglist, delImg, getImgByIds } from '@/common/api';
 import Pagination from '@/components/pagination/index.vue';
@@ -93,7 +93,7 @@ const handleSuccess: UploadProps['onSuccess'] = async (response) => {
 /**
  * 限制用户上传文件的格式和大小
  */
-function handleBeforeUpload(file: UploadRawFile): boolean {
+const handleBeforeUpload = function (file: UploadRawFile): boolean {
   if (file.size > 2 * 1048 * 1048) {
     ElMessage.warning('上传图片不能大于2M');
     return false;
@@ -103,7 +103,7 @@ function handleBeforeUpload(file: UploadRawFile): boolean {
     return false;
   }
   return true;
-}
+};
 /**
  * 清空选项
  */

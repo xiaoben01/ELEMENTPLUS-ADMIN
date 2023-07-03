@@ -62,7 +62,7 @@
   </div>
 </template>
 
-<script setup lang="ts" name="IconSelect">
+<script setup lang="ts">
 import * as ElementPlusIconsVue from '@element-plus/icons-vue';
 import { onClickOutside } from '@vueuse/core';
 import { onMounted, ref, toRef } from 'vue';
@@ -89,18 +89,18 @@ const iconSelectorDialogRef = ref();
 /**
  * icon 加载
  */
-function loadIcons(): void {
+const loadIcons = function (): void {
   const icons = ElementPlusIconsVue;
   for (const icon in icons) {
     allIconNames.push(icon);
   }
   filterIconNames.value = allIconNames;
-}
+};
 
 /**
  * icon 筛选
  */
-function handleFilter(): void {
+const handleFilter = function (): void {
   if (filterValue.value) {
     filterIconNames.value = allIconNames.filter((iconName) =>
       iconName.includes(filterValue.value)
@@ -108,15 +108,15 @@ function handleFilter(): void {
   } else {
     filterIconNames.value = allIconNames;
   }
-}
+};
 
 /**
  * icon 选择
  */
-function handleSelect(iconName: string): void {
+const handleSelect = function (iconName: string): void {
   emit('update:modelValue', iconName);
   visible.value = false;
-}
+};
 
 /**
  * 点击容器外的区域关闭弹窗 VueUse onClickOutside

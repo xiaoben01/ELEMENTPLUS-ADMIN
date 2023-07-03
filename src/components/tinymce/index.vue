@@ -10,7 +10,7 @@
     :id="tinymceId"
   ></editor>
 </template>
-<script setup lang="ts" name="Tinymce">
+<script setup lang="ts">
 //JS部分
 //在js中引入所需的主题和组件
 import tinymce from 'tinymce/tinymce';
