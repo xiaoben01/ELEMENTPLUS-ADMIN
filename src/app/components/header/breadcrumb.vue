@@ -6,12 +6,7 @@
   <el-breadcrumb class="app-breadcrumb" separator="/">
     <transition-group name="breadcrumb-slide">
       <el-breadcrumb-item :key="item.path" v-for="(item, index) in levelList">
-        <span
-          class="no-redirect"
-          v-if="
-            item.redirect === 'noRedirect' || index === levelList.length - 1
-          "
-        >
+        <span class="no-redirect" v-if="item.redirect === 'noRedirect' || index === levelList.length - 1">
           {{ item.meta.title }}
         </span>
         <a v-else @click.prevent="handleLink(item)">{{ item.meta.title }}</a>
@@ -56,22 +51,15 @@ onBeforeMount(() => {
  */
 const getBreadcrumb = (): void => {
   // 只显示带有meta.title的路由
-  let matched: any = route.matched.filter(
-    (item) => item.meta && item.meta.title
-  );
+  let matched: any = route.matched.filter((item) => item.meta && item.meta.title);
   const first = matched[0];
 
   if (!isDashboard(first)) {
-    matched = [{ path: '/dashboard', meta: { title: '控制台' } }].concat(
-      matched
-    );
+    matched = [{ path: '/dashboard', meta: { title: '控制台' } }].concat(matched);
   }
 
   // 过虑不在breadcrumb面包屑显示的路由
-  levelList.value = matched.filter(
-    (item: any) =>
-      item.meta && item.meta.title && item.meta.breadcrumb !== false
-  );
+  levelList.value = matched.filter((item: any) => item.meta && item.meta.title && item.meta.breadcrumb !== false);
 };
 
 /**

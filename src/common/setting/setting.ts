@@ -6,9 +6,9 @@ export default {
   // 网站标题
   title: import.meta.env.VITE_APP_TITLE,
   // 网站LOGO
-  logo: '/logo.png',
+  logo: import.meta.env.VITE_BUILD_LOGO,
   // 用户头像
-  avatar: '/logo.png',
+  avatar: import.meta.env.VITE_BUILD_LOGO,
   // 是否显示LOGO
   showLogo: true,
   // 是否显示面包屑

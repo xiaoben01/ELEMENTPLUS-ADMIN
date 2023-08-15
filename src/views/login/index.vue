@@ -13,12 +13,7 @@
               {{ setting.title }}
             </div>
           </div>
-          <el-form
-            ref="loginFormRef"
-            size="large"
-            :model="loginForm"
-            :rules="loginFormRules"
-          >
+          <el-form ref="loginFormRef" size="large" :model="loginForm" :rules="loginFormRules">
             <el-form-item prop="username">
               <el-input placeholder="用户名" v-model="loginForm.username">
                 <template #prefix>
@@ -27,25 +22,14 @@
               </el-input>
             </el-form-item>
             <el-form-item prop="password">
-              <el-input
-                show-password
-                placeholder="密码"
-                type="password"
-                v-model="loginForm.password"
-              >
+              <el-input show-password placeholder="密码" type="password" v-model="loginForm.password">
                 <template #prefix>
                   <el-icon><Lock /></el-icon>
                 </template>
               </el-input>
             </el-form-item>
             <el-form-item>
-              <el-button
-                type="primary"
-                class="app-width-full"
-                @click="handelLogin(loginFormRef)"
-              >
-                登录
-              </el-button>
+              <el-button type="primary" class="app-width-full" @click="handelLogin(loginFormRef)">登录</el-button>
             </el-form-item>
           </el-form>
         </div>

@@ -68,7 +68,11 @@ router.beforeEach(async (to, from, next) => {
     } else {
       // token失效回退到登录页时是否记录本次的路由
       if (settings().recordRoute) {
-        next(`/login?redirect=${to.path}`);
+        if (to.path === '/404') {
+          next(`/login?redirect=/dashboard`);
+        } else {
+          next(`/login?redirect=${to.path}`);
+        }
       } else {
         next('/login');
       }

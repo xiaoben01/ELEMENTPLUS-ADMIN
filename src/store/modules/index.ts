@@ -8,13 +8,10 @@ const modulesFiles = import.meta.glob('./*.ts', {
   eager: true
 });
 
-const modules = Object.keys(modulesFiles).reduce(
-  (modules: { [key: string]: any }, path: string) => {
-    const moduleName = path.replace(/^\.\/(.*)\.\w+$/, '$1');
-    modules[moduleName] = modulesFiles[path];
-    return modules;
-  },
-  {}
-);
+const modules = Object.keys(modulesFiles).reduce((modules: { [key: string]: any }, path: string) => {
+  const moduleName = path.replace(/^\.\/(.*)\.\w+$/, '$1');
+  modules[moduleName] = modulesFiles[path];
+  return modules;
+}, {});
 
 export default modules;

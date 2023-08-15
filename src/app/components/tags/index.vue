@@ -26,11 +26,7 @@
           <!-- 标题 -->
           <span class="tags-text">{{ tag.title }}</span>
           <!-- 关闭按钮 -->
-          <el-icon
-            class="tags-close"
-            v-if="!isAffix(tag)"
-            @click.prevent.stop="closeSelectedTag(tag)"
-          >
+          <el-icon class="tags-close" v-if="!isAffix(tag)" @click.prevent.stop="closeSelectedTag(tag)">
             <Close />
           </el-icon>
         </router-link>
@@ -38,15 +34,9 @@
     </div>
 
     <!-- 右键菜单 -->
-    <ul
-      class="tags-context-menu"
-      :style="{ left: left + 'px', top: top + 'px' }"
-      v-show="visible"
-    >
+    <ul class="tags-context-menu" :style="{ left: left + 'px', top: top + 'px' }" v-show="visible">
       <li @click="refreshSelectedTag(selectedTag)">刷新页面</li>
-      <li v-if="!isAffix(selectedTag)" @click="closeSelectedTag(selectedTag)">
-        关闭当前
-      </li>
+      <li v-if="!isAffix(selectedTag)" @click="closeSelectedTag(selectedTag)">关闭当前</li>
       <li @click="closeOthersTags">关闭其它</li>
       <li v-if="!isFirstTags()" @click="closeLeftTags">关闭左侧</li>
       <li v-if="!isLastTags()" @click="closeRightTags">关闭右侧</li>
@@ -56,14 +46,7 @@
 </template>
 
 <script setup lang="ts">
-import {
-  ref,
-  watch,
-  computed,
-  nextTick,
-  onMounted,
-  getCurrentInstance
-} from 'vue';
+import { ref, watch, computed, nextTick, onMounted, getCurrentInstance } from 'vue';
 import { useRoute, useRouter } from 'vue-router';
 import path from 'path-browserify';
 import ScrollPane from './scroll-pane.vue';
@@ -188,10 +171,7 @@ function moveToCurrentTag(): void {
 // 判断是否有左侧标签
 function isFirstTags(): any {
   try {
-    return (
-      selectedTag.value.fullPath === visitedTags.value[1].fullPath ||
-      selectedTag.value.fullPath === '/'
-    );
+    return selectedTag.value.fullPath === visitedTags.value[1].fullPath || selectedTag.value.fullPath === '/';
   } catch (err) {
     return false;
   }
@@ -200,10 +180,7 @@ function isFirstTags(): any {
 // 判断是否有右侧标签
 function isLastTags(): any {
   try {
-    return (
-      selectedTag.value.fullPath ===
-      visitedTags.value[visitedTags.value.length - 1].fullPath
-    );
+    return selectedTag.value.fullPath === visitedTags.value[visitedTags.value.length - 1].fullPath;
   } catch (err) {
     return false;
   }
@@ -248,9 +225,7 @@ function closeLeftTags(): void {
   tags()
     .delLeftTags(selectedTag.value)
     .then((res: any) => {
-      if (
-        !res.visitedTags.find((item: any) => item.fullPath === route.fullPath)
-      ) {
+      if (!res.visitedTags.find((item: any) => item.fullPath === route.fullPath)) {
         toLastTag(res.visitedTags);
       }
     });
@@ -261,9 +236,7 @@ function closeRightTags(): void {
   tags()
     .delRightTags(selectedTag.value)
     .then((res: any) => {
-      if (
-        !res.visitedTags.find((item: any) => item.fullPath === route.fullPath)
-      ) {
+      if (!res.visitedTags.find((item: any) => item.fullPath === route.fullPath)) {
         toLastTag(res.visitedTags);
       }
     });

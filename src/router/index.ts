@@ -2,12 +2,7 @@
  * @Description: 路由配置
  * @Author: xiaoben(xiaoben0527@qq.com)
  */
-import {
-  createRouter,
-  createWebHistory,
-  createWebHashHistory,
-  RouteRecordRaw
-} from 'vue-router';
+import { createRouter, createWebHistory, createWebHashHistory, RouteRecordRaw } from 'vue-router';
 import setting from '@/common/setting';
 import constant from './modules/constant';
 

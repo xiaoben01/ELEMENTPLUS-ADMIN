@@ -11,9 +11,9 @@
       <!-- 菜单组件 -->
       <el-menu
         mode="vertical"
-        text-color="var(--elementPlus-admin-admin-sidebar-menu-text-color)"
-        active-text-color="var(--elementPlus-admin-admin-sidebar-menu-text-active-color)"
-        background-color="var(--elementPlus-admin-admin-sidebar-menu-bg-color)"
+        text-color="#cad3e4"
+        active-text-color="#409eff"
+        background-color="#2d323c"
         :unique-opened="false"
         :collapse-transition="false"
         :collapse="isCollapse"
@@ -21,13 +21,7 @@
         :default-active="activeMenu"
       >
         <!-- 菜单 loop -->
-        <sidebar-item
-          :key="route.path"
-          :item="route"
-          :base-path="route.path"
-          :is-collapse="isCollapse"
-          v-for="route in menuList"
-        />
+        <sidebar-item :key="route.path" :item="route" :base-path="route.path" :is-collapse="isCollapse" v-for="route in menuList" />
       </el-menu>
     </el-scrollbar>
   </div>

@@ -3,12 +3,7 @@
  * @Author: xiaoben(xiaoben0527@qq.com)
 -->
 <template>
-  <editor
-    v-model="myValue"
-    :init="init"
-    :disabled="disabled"
-    :id="tinymceId"
-  ></editor>
+  <editor v-model="myValue" :init="init" :disabled="disabled" :id="tinymceId"></editor>
 </template>
 <script setup lang="ts">
 //JS部分
@@ -64,23 +59,20 @@ const props = defineProps({
 });
 //用于接收外部传递进来的富文本
 const myValue = ref(props.value);
-const tinymceId = ref(
-  'vue-tinymce-' + +new Date() + ((Math.random() * 1000).toFixed(0) + '')
-);
+const tinymceId = ref('vue-tinymce-' + +new Date() + ((Math.random() * 1000).toFixed(0) + ''));
 //定义一个对象 init初始化
 const init = reactive({
   selector: '#' + tinymceId.value, //富文本编辑器的id,
-  language_url: '/tinymce/langs/zh_CN.js', // 语言包的路径，具体路径看自己的项目，文档后面附上中文js文件
+  language_url: import.meta.env.VITE_BUILD_TINYMCE_LANGUAGE, // 语言包的路径，具体路径看自己的项目，文档后面附上中文js文件
   language: 'zh_CN', //语言
-  skin_url: '/tinymce/skins/ui/oxide', // skin路径，具体路径看自己的项目
+  skin_url: import.meta.env.VITE_BUILD_TINYMCE_SKIN_URL, // skin路径，具体路径看自己的项目
   height: 400, //编辑器高度
   branding: false, //是否禁用“Powered by TinyMCE”
   menubar: true, //顶部菜单栏显示
   image_dimensions: false, //去除宽高属性
   plugins: props.plugins, //这里的数据是在props里面就定义好了的
   toolbar: props.toolbar, //这里的数据是在props里面就定义好了的
-  font_formats:
-    'Arial=arial,helvetica,sans-serif; 宋体=SimSun; 微软雅黑=Microsoft Yahei; Impact=impact,chicago;', //字体
+  font_formats: 'Arial=arial,helvetica,sans-serif; 宋体=SimSun; 微软雅黑=Microsoft Yahei; Impact=impact,chicago;', //字体
   fontsize_formats: '11px 12px 14px 16px 18px 24px 36px 48px 64px 72px', //文字大小
   // paste_convert_word_fake_lists: false, // 插入word文档需要该属性
   paste_webkit_styles: 'all',
@@ -89,7 +81,7 @@ const init = reactive({
   paste_auto_cleanup_on_paste: false,
   file_picker_types: 'file',
   promotion: false,
-  content_css: '/tinymce/skins/content/default/content.css', //以css文件方式自定义可编辑区域的css样式，css文件需自己创建并引入
+  content_css: import.meta.env.VITE_BUILD_TINYMCE_CONTENT_CSS, //以css文件方式自定义可编辑区域的css样式，css文件需自己创建并引入
   setup: function (Editor: any) {
     Editor.ui.registry.addButton('meeting', {
       text: '',
@@ -139,9 +131,7 @@ const handle = (event: any): void => {
     const data = event.data.content;
     // 执行相关操作
     data.forEach((v: { path: any }) => {
-      window.tinymce.activeEditor.insertContent(
-        `<img class="wscnph" src="` + `${v.path}" >`
-      );
+      window.tinymce.activeEditor.insertContent(`<img class="wscnph" src="` + `${v.path}" >`);
     });
     // 关闭弹窗
     window.tinymce.get(tinymceId.value).windowManager.close();

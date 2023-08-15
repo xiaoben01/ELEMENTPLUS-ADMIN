@@ -130,5 +130,24 @@ export default [
     noTags: 0,
     open: 0,
     redirect: ''
+  },
+  {
+    id: 2005,
+    parentId: 2000,
+    sort: 5,
+    path: 'qrCode',
+    component: 'pugin/qrCode',
+    name: 'PuginQrCode',
+    title: '二维码生成器',
+    icon: '',
+    activeMenu: '',
+    affix: 0,
+    alwaysShow: 0,
+    breadcrumb: 1,
+    hidden: 0,
+    noCache: 0,
+    noTags: 0,
+    open: 0,
+    redirect: ''
   }
 ];

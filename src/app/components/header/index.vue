@@ -5,11 +5,7 @@
 <template>
   <div class="app-header">
     <!-- 左侧栏开关 -->
-    <div
-      class="header-menu-icon"
-      :class="{ active: sidebar.opened }"
-      @click="handleToggleSideBar"
-    >
+    <div class="header-menu-icon" :class="{ active: sidebar.opened }" @click="handleToggleSideBar">
       <el-icon :size="16"><Fold /></el-icon>
     </div>
     <!-- 面包屑 -->

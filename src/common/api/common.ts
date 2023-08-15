@@ -50,11 +50,7 @@ export function del(ids: number | string, dbname: string): Promise<any> {
 }
 
 // 设置某列的值
-export function setColumnValByKey(
-  id: number,
-  data: any,
-  dbname: string
-): Promise<any> {
+export function setColumnValByKey(id: number, data: any, dbname: string): Promise<any> {
   return request({
     url: `/common/setColumnValByKey/${id}/${dbname}`,
     method: 'post',

@@ -6,32 +6,17 @@
   <div class="container">
     <el-container>
       <el-header height="40px">
-        <el-upload
-          action="/admin-api/file/upload"
-          :show-file-list="false"
-          :before-upload="handleBeforeUpload"
-          :on-success="handleSuccess"
-          :data="upParma"
-        >
+        <el-upload action="/admin-api/file/upload" :show-file-list="false" :before-upload="handleBeforeUpload" :on-success="handleSuccess" :data="upParma">
           <el-button type="primary" size="small">上传图片</el-button>
         </el-upload>
         <div>
-          <el-button type="warning" size="small" @click="emptying">
-            清空选项
-          </el-button>
-          <el-button type="success" size="small" @click="useImg">
-            确认使用
-          </el-button>
+          <el-button type="warning" size="small" @click="emptying">清空选项</el-button>
+          <el-button type="success" size="small" @click="useImg">确认使用</el-button>
           <el-button type="danger" size="small" @click="del">删除</el-button>
         </div>
       </el-header>
       <el-main>
-        <div
-          v-for="(item, i) in imgArr"
-          :key="i"
-          class="imgBorder"
-          @click="checkedImg(item.id)"
-        >
+        <div v-for="(item, i) in imgArr" :key="i" class="imgBorder" @click="checkedImg(item.id)">
           <el-image :src="item.path"></el-image>
           <div>
             <div class="checkedImg" v-if="imgIndex.indexOf(item.id) != -1">
@@ -41,13 +26,7 @@
         </div>
       </el-main>
       <el-footer>
-        <Pagination
-          :total="total"
-          v-model:page="page"
-          v-model:size="size"
-          :layout="'prev, pager, next'"
-          @pagination="getListData"
-        />
+        <Pagination :total="total" v-model:page="page" v-model:size="size" :layout="'prev, pager, next'" @pagination="getListData" />
       </el-footer>
     </el-container>
   </div>
@@ -55,7 +34,7 @@
 
 <script setup lang="ts">
 import { onMounted, computed, ref } from 'vue';
-import { getImglist, delImg, getImgByIds } from '@/common/api';
+import { getImglist, delImg, getImgByIds, getToken } from '@/common/api';
 import Pagination from '@/components/pagination/index.vue';
 import { UploadRawFile, UploadProps, ElMessage } from 'element-plus';
 
@@ -132,6 +111,10 @@ const del = async (): Promise<any> => {
  * 使用图片
  */
 const useImg = (): void => {
+  if (imgIndex.value.length === 0) {
+    ElMessage.warning('请选择要使用的图片');
+    return;
+  }
   getImgByIds({ ids: imgIndex.value.join(',') })
     .then((res) => {
       if (res.code === 200) {
@@ -155,9 +138,16 @@ const page = ref(1);
 const size = ref(15);
 
 // 获取数据
+// 获取数据
 onMounted(async () => {
   getListData();
+  getQiniuToken();
 });
+// 获取七牛云token
+const getQiniuToken = async (): Promise<any> => {
+  const res = await getToken();
+  upParma.value.token = res.data;
+};
 interface Img {
   id: number;
   path: string;

@@ -53,8 +53,7 @@ export function validAlphabets(str: string): boolean {
  * @returns {Boolean}
  */
 export function validEmail(email: string): boolean {
-  const reg =
-    /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
+  const reg = /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
   return reg.test(email);
 }
 
@@ -106,12 +105,7 @@ const regArr = {
  * @param {String} regKey
  * @param {String} msg
  */
-export function validatorFunction(
-  value: string,
-  callback: (arg0?: Error | undefined) => void,
-  regKey: string,
-  msg: string
-): void {
+export function validatorFunction(value: string, callback: (arg0?: Error | undefined) => void, regKey: string, msg: string): void {
   if ((regArr as any)[regKey].test(value) === false) {
     callback(new Error(msg));
   } else {
@@ -124,7 +118,5 @@ export function validatorFunction(
  * @returns {Boolean}
  */
 export function isMoney(value: string): boolean {
-  return /(^[1-9]([0-9]+)?(\.[0-9]{1,2})?$)|(^(0){1}$)|(^[0-9]\.[0-9]([0-9])?$)/.test(
-    value
-  );
+  return /(^[1-9]([0-9]+)?(\.[0-9]{1,2})?$)|(^(0){1}$)|(^[0-9]\.[0-9]([0-9])?$)/.test(value);
 }

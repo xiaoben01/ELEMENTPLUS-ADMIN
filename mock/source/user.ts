@@ -161,6 +161,17 @@ export default [
     }
   },
   {
+    url: '/admin-api/file/getQiniuToken',
+    method: 'post',
+    response: () => {
+      return {
+        code: 200,
+        data: 'qiniutoken',
+        msg: '获取成功！'
+      };
+    }
+  },
+  {
     url: '/admin-api/common/getList/table',
     method: 'post',
     response: (config: any) => {

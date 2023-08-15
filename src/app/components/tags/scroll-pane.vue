@@ -3,36 +3,24 @@
  * @Author: xiaoben(xiaoben0527@qq.com)
 -->
 <template>
-  <el-scrollbar
-    class="tags-scroll-pane-wrapper"
-    ref="scrollContainer"
-    :vertical="false"
-    @wheel.prevent="handleScroll"
-  >
+  <el-scrollbar class="tags-scroll-pane-wrapper" ref="scrollContainer" @wheel.prevent="handleScroll">
     <slot />
   </el-scrollbar>
 </template>
 
 <script setup lang="ts">
-import {
-  ref,
-  computed,
-  // getCurrentInstance,
-  onMounted,
-  onBeforeUnmount
-} from 'vue';
+import { ref, computed, watch } from 'vue';
 import useStore from '@/store';
 
 // 标签空隔距离
 const tagAndTagSpacing = ref<number>(4);
+
 // 组件ref
 const scrollContainer = ref<any>(null);
 
-// 获取当前实例参数
-// const { proxy }: any = getCurrentInstance();
-
 // emit
 const emits = defineEmits(['scroll']);
+
 // 滚动事件
 const emitScroll = (): void => {
   emits('scroll');
@@ -44,14 +32,16 @@ const { tags } = useStore();
 const visitedTags = computed(() => tags().visitedTags);
 
 // 滚动组件ref
-const scrollWrapper = computed(() => scrollContainer.value.wrap$);
+const scrollWrapper = computed(() => scrollContainer.value?.wrap$);
 
-onMounted(() => {
-  scrollWrapper.value.addEventListener('scroll', emitScroll, true);
-});
-
-onBeforeUnmount(() => {
-  scrollWrapper.value.removeEventListener('scroll', emitScroll);
+//使用watch监听，防止出现Cannot read properties of undefined (reading 'addEventListener'
+watch(scrollContainer, (newVal: any, oldVal: any) => {
+  if (newVal && newVal.wrap$) {
+    newVal.wrap$.addEventListener('scroll', emitScroll, true);
+  }
+  if (oldVal && oldVal.wrap$) {
+    oldVal.wrap$.removeEventListener('scroll', emitScroll, true);
+  }
 });
 
 /**
@@ -73,7 +63,6 @@ const moveToTarget = (currentTag: any): void => {
   const $containerWidth = $container.offsetWidth;
   const $scrollWrapper = scrollWrapper.value;
   // 父组件tag标签数量
-  // const tagList = proxy?.$parent.$refs.tag;
   const tagList = visitedTags.value;
 
   // 第一个标签
@@ -85,44 +74,40 @@ const moveToTarget = (currentTag: any): void => {
     firstTag = tagList[0];
     lastTag = tagList[tagList.length - 1];
   }
+  if ($scrollWrapper !== undefined) {
+    if (firstTag === currentTag) {
+      $scrollWrapper.scrollLeft = 0;
+    } else if (lastTag === currentTag) {
+      $scrollWrapper.scrollLeft = $scrollWrapper.scrollWidth - $containerWidth;
+    } else {
+      // 找到上一个标签与下一个标签
+      const tagListDom = document.getElementsByClassName('tags-link-item');
+      const currentIndex = tagList.findIndex((item: any) => item === currentTag);
+      let prevTag: any = null;
+      let nextTag: any = null;
 
-  if (firstTag === currentTag) {
-    $scrollWrapper.scrollLeft = 0;
-  } else if (lastTag === currentTag) {
-    $scrollWrapper.scrollLeft = $scrollWrapper.scrollWidth - $containerWidth;
-  } else {
-    // 找到上一个标签与下一个标签
-    const tagListDom = document.getElementsByClassName('tags-link-item');
-    const currentIndex = tagList.findIndex((item: any) => item === currentTag);
-    let prevTag: any = null;
-    let nextTag: any = null;
-
-    for (const k in tagListDom) {
-      if (k !== 'length' && Object.hasOwnProperty.call(tagListDom, k)) {
-        if (
-          (tagListDom[k] as any).dataset.path === tagList[currentIndex - 1].path
-        ) {
-          prevTag = tagListDom[k];
-        }
-        if (
-          (tagListDom[k] as any).dataset.path === tagList[currentIndex + 1].path
-        ) {
-          nextTag = tagListDom[k];
+      for (const k in tagListDom) {
+        if (k !== 'length' && Object.hasOwnProperty.call(tagListDom, k)) {
+          if ((tagListDom[k] as any).dataset.path === tagList[currentIndex - 1].path) {
+            prevTag = tagListDom[k];
+          }
+          if ((tagListDom[k] as any).dataset.path === tagList[currentIndex + 1].path) {
+            nextTag = tagListDom[k];
+          }
         }
       }
-    }
 
-    // 标签与下一个标签距离
-    const afterNextTagOffsetLeft =
-      nextTag.offsetLeft + nextTag.offsetWidth + tagAndTagSpacing.value;
+      // 标签与下一个标签距离
+      const afterNextTagOffsetLeft = nextTag.offsetLeft + nextTag.offsetWidth + tagAndTagSpacing.value;
 
-    // 标签与上一个标签距离
-    const beforePrevTagOffsetLeft = prevTag.offsetLeft - tagAndTagSpacing.value;
+      // 标签与上一个标签距离
+      const beforePrevTagOffsetLeft = prevTag.offsetLeft - tagAndTagSpacing.value;
 
-    if (afterNextTagOffsetLeft > $scrollWrapper.scrollLeft + $containerWidth) {
-      $scrollWrapper.scrollLeft = afterNextTagOffsetLeft - $containerWidth;
-    } else if (beforePrevTagOffsetLeft < $scrollWrapper.scrollLeft) {
-      $scrollWrapper.scrollLeft = beforePrevTagOffsetLeft;
+      if (afterNextTagOffsetLeft > $scrollWrapper.scrollLeft + $containerWidth) {
+        $scrollWrapper.scrollLeft = afterNextTagOffsetLeft - $containerWidth;
+      } else if (beforePrevTagOffsetLeft < $scrollWrapper.scrollLeft) {
+        $scrollWrapper.scrollLeft = beforePrevTagOffsetLeft;
+      }
     }
   }
 };

@@ -161,9 +161,7 @@ const useStore = defineStore({
     // 删除左侧标签
     delLeftTags(view: any) {
       return new Promise((resolve) => {
-        const currIndex = this.visitedTags.findIndex(
-          (v) => v.path === view.path
-        );
+        const currIndex = this.visitedTags.findIndex((v) => v.path === view.path);
         if (currIndex === -1) {
           return;
         }
@@ -187,9 +185,7 @@ const useStore = defineStore({
     // 删除右侧标签
     delRightTags(view: any) {
       return new Promise((resolve) => {
-        const currIndex = this.visitedTags.findIndex(
-          (v) => v.path === view.path
-        );
+        const currIndex = this.visitedTags.findIndex((v) => v.path === view.path);
         if (currIndex === -1) {
           return;
         }

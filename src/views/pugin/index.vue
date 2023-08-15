@@ -6,67 +6,28 @@
   <div class="elementPlus-admin-h-100">
     <div class="main-page">
       <el-card class="box-card">
-        <el-form
-          ref="ruleFormRef"
-          :model="form"
-          label-width="120px"
-          :size="size"
-        >
+        <el-form ref="ruleFormRef" :model="form" label-width="120px" :size="size">
           <el-form-item label="单图片">
             <div class="image-select">
-              <el-image
-                v-show="form.shareImgPath"
-                :src="form.shareImgPath"
-              ></el-image>
+              <el-image v-show="form.shareImgPath" :src="form.shareImgPath"></el-image>
             </div>
-            <el-button type="text" @click="centerDialogVisible = true">
-              选择图片
-            </el-button>
-            <el-dialog
-              v-model="centerDialogVisible"
-              width="50%"
-              title="选择图片"
-              :modal="false"
-            >
-              <uploadImg
-                :limit="1"
-                name="shareImg"
-                paths="shareImgPath"
-                @selected-img="selectedImg"
-              />
+            <el-button type="primary" @click="centerDialogVisible = true" link>选择图片</el-button>
+            <el-dialog v-model="centerDialogVisible" width="50%" title="选择图片" :modal="false">
+              <uploadImg :limit="1" name="shareImg" paths="shareImgPath" @selected-img="selectedImg" />
             </el-dialog>
           </el-form-item>
           <el-form-item label="多图片">
             <div class="ele-flex">
-              <div
-                class="image-select"
-                v-for="item in form.shareImgPath1"
-                :key="item.id"
-              >
+              <div class="image-select" v-for="item in form.shareImgPath1" :key="item.id">
                 <el-image :src="item.path"></el-image>
-                <el-icon
-                  class="checkedImg"
-                  @click="delImgIng(item.id, 'shareImg1', 'shareImgPath1')"
-                >
+                <el-icon class="checkedImg" @click="delImgIng(item.id, 'shareImg1', 'shareImgPath1')">
                   <Delete />
                 </el-icon>
               </div>
             </div>
-            <el-button type="text" @click="centerDialogVisible1 = true">
-              选择图片
-            </el-button>
-            <el-dialog
-              v-model="centerDialogVisible1"
-              width="50%"
-              title="选择图片"
-              :modal="false"
-            >
-              <uploadImg
-                :limit="3"
-                name="shareImg1"
-                paths="shareImgPath1"
-                @selected-img="selectedImg"
-              />
+            <el-button type="primary" @click="centerDialogVisible1 = true" link>选择图片</el-button>
+            <el-dialog v-model="centerDialogVisible1" width="50%" title="选择图片" :modal="false">
+              <uploadImg :limit="3" name="shareImg1" paths="shareImgPath1" @selected-img="selectedImg" />
             </el-dialog>
           </el-form-item>
         </el-form>
@@ -103,12 +64,7 @@ const form = reactive<Form>({
   shareImg1: '',
   shareImgPath1: []
 });
-const selectedImg = (
-  data: any,
-  name: keyof Form,
-  paths: keyof Form,
-  type: boolean
-): void => {
+const selectedImg = (data: any, name: keyof Form, paths: keyof Form, type: boolean): void => {
   if (type) {
     (form as any)[name] = data[0].id;
     (form as any)[paths] = data[0].path;

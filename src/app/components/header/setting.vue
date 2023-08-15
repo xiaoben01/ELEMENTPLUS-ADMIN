@@ -11,56 +11,33 @@
           <el-icon :size="16"><Close /></el-icon>
         </div>
       </div>
-      <div
-        class="setting-scroll-wrapper"
-        :style="`height: calc(100vh - ${settingScrollHeight}px)`"
-      >
+      <div class="setting-scroll-wrapper" :style="`height: calc(100vh - ${settingScrollHeight}px)`">
         <el-scrollbar class="app-el-scrollbar">
           <div class="setting-form-wrapper">
             <el-form label-width="150px" label-position="left" :model="form">
               <el-form-item label-width="100px" label="主题">
-                <el-select
-                  v-model="form.theme"
-                  @change="changeSettingValue($event, 'theme')"
-                >
-                  <el-option
-                    v-for="item in themeList"
-                    :key="item.value"
-                    :label="item.label"
-                    :value="item.value"
-                  />
+                <el-select v-model="form.theme" @change="changeSettingValue($event, 'theme')">
+                  <el-option v-for="item in themeList" :key="item.value" :label="item.label" :value="item.value" />
                 </el-select>
               </el-form-item>
               <el-form-item label="显示logo">
                 <div class="app-width-full app-flex app-flex-justify-end">
-                  <el-switch
-                    v-model="form.showLogo"
-                    @change="changeSettingValue($event, 'showLogo')"
-                  />
+                  <el-switch v-model="form.showLogo" @change="changeSettingValue($event, 'showLogo')" />
                 </div>
               </el-form-item>
               <el-form-item label="固定头部" class="app-flex-justify-end">
                 <div class="app-width-full app-flex app-flex-justify-end">
-                  <el-switch
-                    v-model="form.fixedHeader"
-                    @change="changeSettingValue($event, 'fixedHeader')"
-                  />
+                  <el-switch v-model="form.fixedHeader" @change="changeSettingValue($event, 'fixedHeader')" />
                 </div>
               </el-form-item>
               <el-form-item label="显示面包屑">
                 <div class="app-width-full app-flex app-flex-justify-end">
-                  <el-switch
-                    v-model="form.showBreadcrumb"
-                    @change="changeSettingValue($event, 'showBreadcrumb')"
-                  />
+                  <el-switch v-model="form.showBreadcrumb" @change="changeSettingValue($event, 'showBreadcrumb')" />
                 </div>
               </el-form-item>
               <el-form-item label="显示标签">
                 <div class="app-width-full app-flex app-flex-justify-end">
-                  <el-switch
-                    v-model="form.showTags"
-                    @change="changeSettingValue($event, 'showTags')"
-                  />
+                  <el-switch v-model="form.showTags" @change="changeSettingValue($event, 'showTags')" />
                 </div>
               </el-form-item>
               <el-form-item>
@@ -74,52 +51,33 @@
                 </template>
                 <template #default>
                   <div class="app-width-full app-flex app-flex-justify-end">
-                    <el-switch
-                      v-model="form.showTagsIcon"
-                      @change="changeSettingValue($event, 'showTagsIcon')"
-                    />
+                    <el-switch v-model="form.showTagsIcon" @change="changeSettingValue($event, 'showTagsIcon')" />
                   </div>
                 </template>
               </el-form-item>
               <el-form-item label="显示进度条">
                 <div class="app-width-full app-flex app-flex-justify-end">
-                  <el-switch
-                    v-model="form.showProgress"
-                    @change="changeSettingValue($event, 'showProgress')"
-                  />
+                  <el-switch v-model="form.showProgress" @change="changeSettingValue($event, 'showProgress')" />
                 </div>
               </el-form-item>
               <el-form-item label="显示刷新按钮">
                 <div class="app-width-full app-flex app-flex-justify-end">
-                  <el-switch
-                    v-model="form.showRefresh"
-                    @change="changeSettingValue($event, 'showRefresh')"
-                  />
+                  <el-switch v-model="form.showRefresh" @change="changeSettingValue($event, 'showRefresh')" />
                 </div>
               </el-form-item>
               <el-form-item label="显示用户名">
                 <div class="app-width-full app-flex app-flex-justify-end">
-                  <el-switch
-                    v-model="form.showUserInfo"
-                    @change="changeSettingValue($event, 'showUserInfo')"
-                  />
+                  <el-switch v-model="form.showUserInfo" @change="changeSettingValue($event, 'showUserInfo')" />
                 </div>
               </el-form-item>
               <el-form-item label="记录路由地址">
                 <div class="app-width-full app-flex app-flex-justify-end">
-                  <el-switch
-                    v-model="form.recordRoute"
-                    @change="changeSettingValue($event, 'recordRoute')"
-                  />
+                  <el-switch v-model="form.recordRoute" @change="changeSettingValue($event, 'recordRoute')" />
                 </div>
               </el-form-item>
               <el-form-item label-width="80px" label="表单尺寸">
                 <div class="app-width-full app-flex app-flex-justify-end">
-                  <el-radio-group
-                    size="small"
-                    v-model="form.formSize"
-                    @change="changeSettingValue($event, 'formSize')"
-                  >
+                  <el-radio-group size="small" v-model="form.formSize" @change="changeSettingValue($event, 'formSize')">
                     <el-radio-button label="large">大</el-radio-button>
                     <el-radio-button label="default">默认</el-radio-button>
                     <el-radio-button label="small">小</el-radio-button>
@@ -131,12 +89,8 @@
         </el-scrollbar>
       </div>
       <div class="setting-bottom-wrapper" ref="settingBottomRef">
-        <el-button class="app-width-full" type="primary" @click="handleSave">
-          保存
-        </el-button>
-        <el-button class="app-width-full" @click="handleRestore">
-          恢复默认
-        </el-button>
+        <el-button class="app-width-full" type="primary" @click="handleSave">保存</el-button>
+        <el-button class="app-width-full" @click="handleRestore">恢复默认</el-button>
       </div>
     </div>
   </transition>
@@ -194,8 +148,7 @@ onMounted(() => {
 // 获取标题与底部元素高度
 const setScrollHeight = (): void => {
   nextTick(() => {
-    settingScrollHeight.value =
-      settingTitleRef.value.offsetHeight + settingBottomRef.value.offsetHeight;
+    settingScrollHeight.value = settingTitleRef.value.offsetHeight + settingBottomRef.value.offsetHeight;
   });
 };
 

@@ -5,12 +5,7 @@
 <template>
   <div class="app-container" :class="appClass">
     <!-- 遮罩层 -->
-    <div
-      class="app-mask"
-      :class="{ 'index-setting-drawer': settingStatus }"
-      v-if="(device === 'mobile' && sidebar.opened) || settingStatus"
-      @click="handleMaskColse"
-    ></div>
+    <div class="app-mask" :class="{ 'index-setting-drawer': settingStatus }" v-if="(device === 'mobile' && sidebar.opened) || settingStatus" @click="handleMaskColse"></div>
     <!-- 侧边栏 -->
     <app-sidebar />
     <!-- 主体容器 -->
@@ -36,13 +31,7 @@ import useStore from '@/store';
 import setting from '@/common/setting';
 
 // 组件
-import {
-  AppSidebar,
-  AppMain,
-  AppHeader,
-  AppSetting,
-  AppTags
-} from './components';
+import { AppSidebar, AppMain, AppHeader, AppSetting, AppTags } from './components';
 import router from '@/router';
 
 // 监听窗口变化

@@ -3,21 +3,15 @@
  * @Author: xiaoben(xiaoben0527@qq.com)
 -->
 <template>
-  <el-config-provider :locale="locale">
-    <router-view v-if="isRouterAlive" />
-  </el-config-provider>
+  <router-view v-if="isRouterAlive" />
 </template>
 
 <script setup lang="ts">
 import { ref, computed, provide, nextTick, onMounted } from 'vue';
 import useStore from '@/store';
 import { addClass } from '@/common/utils';
-import zhCn from 'element-plus/lib/locale/lang/zh-cn';
 // 状态管理
 const { settings } = useStore();
-
-// element-plus设置
-const locale = zhCn; // 中文
 
 // 获取主题
 const appTheme = computed(() => settings().theme);

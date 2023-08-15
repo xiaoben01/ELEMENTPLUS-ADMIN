@@ -6,19 +6,9 @@
   <div class="elementPlus-admin-h-100">
     <div class="main-page">
       <el-card class="box-card">
-        <el-form
-          ref="ruleFormRef"
-          :model="form"
-          label-width="120px"
-          :size="size"
-        >
+        <el-form ref="ruleFormRef" :model="form" label-width="120px" :size="size">
           <el-form-item label="编辑器">
-            <Tinymce
-              ref="content"
-              v-model="form.content"
-              name="content"
-              @get-content="getContent"
-            />
+            <Tinymce ref="content" v-model="form.content" name="content" @get-content="getContent" />
           </el-form-item>
         </el-form>
       </el-card>

@@ -4,29 +4,15 @@
 -->
 <template>
   <div ref="iconSelectorRef" class="iconselect-container">
-    <el-input
-      v-model="inputValue"
-      readonly
-      placeholder="点击选择图标"
-      @click="visible = !visible"
-    >
+    <el-input v-model="inputValue" readonly placeholder="点击选择图标" @click="visible = !visible">
       <template #prepend>
         <el-icon><component :is="inputValue" /></el-icon>
       </template>
     </el-input>
 
-    <el-popover
-      shadow="none"
-      :visible="visible"
-      placement="bottom-end"
-      trigger="click"
-      :width="400"
-    >
+    <el-popover shadow="none" :visible="visible" placement="bottom-end" trigger="click" :width="400">
       <template #reference>
-        <div
-          class="cursor-pointer text-999 absolute right-10 top-0 height-32px leading-32"
-          @click="visible = !visible"
-        >
+        <div class="cursor-pointer text-999 absolute right-10 top-0 height-32px leading-32" @click="visible = !visible">
           <el-icon v-show="visible"><CaretTop /></el-icon>
           <el-icon v-show="!visible"><CaretBottom /></el-icon>
         </div>
@@ -34,23 +20,12 @@
 
       <!-- 下拉选择弹窗 -->
       <div ref="iconSelectorDialogRef">
-        <el-input
-          v-model="filterValue"
-          class="p-2"
-          placeholder="搜索图标"
-          clearable
-          @input="handleFilter"
-        />
+        <el-input v-model="filterValue" class="p-2" placeholder="搜索图标" clearable @input="handleFilter" />
         <el-divider border-style="dashed" />
 
         <el-scrollbar height="300px">
           <ul class="icon-list">
-            <li
-              v-for="(iconName, index) in filterIconNames"
-              :key="index"
-              class="icon-item"
-              @click="handleSelect(iconName)"
-            >
+            <li v-for="(iconName, index) in filterIconNames" :key="index" class="icon-item" @click="handleSelect(iconName)">
               <el-tooltip :content="iconName" placement="bottom" effect="light">
                 <el-icon><component :is="iconName" /></el-icon>
               </el-tooltip>
@@ -102,9 +77,7 @@ const loadIcons = function (): void {
  */
 const handleFilter = function (): void {
   if (filterValue.value) {
-    filterIconNames.value = allIconNames.filter((iconName) =>
-      iconName.includes(filterValue.value)
-    );
+    filterIconNames.value = allIconNames.filter((iconName) => iconName.includes(filterValue.value));
   } else {
     filterIconNames.value = allIconNames;
   }

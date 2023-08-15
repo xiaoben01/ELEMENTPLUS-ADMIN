@@ -5,11 +5,7 @@
 -->
 <template>
   <div class="app-user-info">
-    <el-dropdown
-      class="user-info-dropdown"
-      placement="bottom"
-      @visible-change="handelVisibleChange"
-    >
+    <el-dropdown class="user-info-dropdown" placement="bottom" @visible-change="handelVisibleChange">
       <div class="user-info-wrapper">
         <div class="user-avatar">
           <el-avatar :size="40" :src="avatar" />

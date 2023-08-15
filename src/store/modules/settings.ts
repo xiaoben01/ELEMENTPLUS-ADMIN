@@ -8,19 +8,7 @@ import setting from '@/common/setting';
 import { storage } from '@/common/utils';
 
 // 获取默认设置
-const {
-  theme,
-  fixedHeader,
-  showLogo,
-  showBreadcrumb,
-  showUserInfo,
-  showTags,
-  showTagsIcon,
-  showProgress,
-  recordRoute,
-  showRefresh,
-  formSize
-} = setting;
+const { theme, fixedHeader, showLogo, showBreadcrumb, showUserInfo, showTags, showTagsIcon, showProgress, recordRoute, showRefresh, formSize } = setting;
 
 // 获取个人设置
 const mySetting = storage.get('settings.custom') || '';

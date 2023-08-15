@@ -12,12 +12,7 @@
           <el-table-column prop="name" label="Name" />
           <el-table-column prop="address" label="Address" />
         </el-table>
-        <Pagination
-          :total="total"
-          v-model:page="page"
-          v-model:size="limit"
-          @pagination="getListData"
-        />
+        <Pagination :total="total" v-model:page="page" v-model:size="limit" @pagination="getListData" />
       </el-card>
     </div>
   </div>

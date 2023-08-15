@@ -10,9 +10,7 @@ import setting from '@/common/setting';
  * @return {*}
  */
 function getStorageType(type: string): any {
-  return type === 'session' || type === 'sessionStorage'
-    ? window.sessionStorage
-    : window.localStorage;
+  return type === 'session' || type === 'sessionStorage' ? window.sessionStorage : window.localStorage;
 }
 
 /*

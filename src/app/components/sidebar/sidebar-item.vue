@@ -5,21 +5,9 @@
 <template>
   <div v-if="!item.meta || !item.meta.hidden">
     <!-- 是否有子级路由菜单 -->
-    <template
-      v-if="
-        hasOneShowingChild(item.children, item) &&
-        (!onlyOneChild.children || onlyOneChild.noShowingChildren) &&
-        (!item.meta || !item.meta.alwaysShow)
-      "
-    >
-      <sidebar-link
-        :to="resolvePath(onlyOneChild.path)"
-        v-if="onlyOneChild.meta"
-      >
-        <el-menu-item
-          :class="{ 'submenu-title-noDropdown': !isNest }"
-          :index="resolvePath(onlyOneChild.path)"
-        >
+    <template v-if="hasOneShowingChild(item.children, item) && (!onlyOneChild.children || onlyOneChild.noShowingChildren) && (!item.meta || !item.meta.alwaysShow)">
+      <sidebar-link :to="resolvePath(onlyOneChild.path)" v-if="onlyOneChild.meta">
+        <el-menu-item :class="{ 'submenu-title-noDropdown': !isNest }" :index="resolvePath(onlyOneChild.path)">
           <!-- 是否带有图标 -->
           <template v-if="onlyOneChild.meta.icon">
             <el-icon>
@@ -35,13 +23,8 @@
         </el-menu-item>
       </sidebar-link>
     </template>
-    <!-- popper-append-to-body 添加此属性后菜单el-popper需要逐个手动隐藏,不添加则影响滚动条事件 -->
-    <el-sub-menu
-      ref="sub-menu"
-      popper-append-to-body
-      :index="resolvePath(item.path)"
-      v-else
-    >
+    <!-- teleported 添加此属性后菜单el-popper需要逐个手动隐藏,不添加则影响滚动条事件 -->
+    <el-sub-menu ref="sub-menu" teleported :index="resolvePath(item.path)" v-else>
       <template #title>
         <!-- 是否带有图标 -->
         <template v-if="item.meta">
@@ -57,14 +40,7 @@
         </template>
       </template>
       <!-- 菜单项 -->
-      <sidebar-item
-        class="nest-menu"
-        :is-nest="true"
-        :key="child.path"
-        :item="child"
-        :base-path="resolvePath(child.path)"
-        v-for="child in item.children"
-      />
+      <sidebar-item class="nest-menu" :is-nest="true" :key="child.path" :item="child" :base-path="resolvePath(child.path)" v-for="child in item.children" />
     </el-sub-menu>
   </div>
 </template>

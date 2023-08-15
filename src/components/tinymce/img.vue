@@ -6,32 +6,17 @@
   <div class="container">
     <el-container>
       <el-header height="40px">
-        <el-upload
-          action="https://upload-z2.qiniup.com"
-          :show-file-list="false"
-          :before-upload="handleBeforeUpload"
-          :on-success="handleSuccess"
-          :data="upParma"
-        >
+        <el-upload action="https://upload-z2.qiniup.com" :show-file-list="false" :before-upload="handleBeforeUpload" :on-success="handleSuccess" :data="upParma">
           <el-button type="primary" size="small">上传图片</el-button>
         </el-upload>
         <div>
-          <el-button type="warning" size="small" @click="emptying">
-            清空选项
-          </el-button>
-          <el-button type="success" size="small" @click="useImg">
-            确认使用
-          </el-button>
+          <el-button type="warning" size="small" @click="emptying">清空选项</el-button>
+          <el-button type="success" size="small" @click="useImg">确认使用</el-button>
           <el-button type="danger" size="small" @click="del">删除</el-button>
         </div>
       </el-header>
       <el-main>
-        <div
-          v-for="(item, i) in imgArr"
-          :key="i"
-          class="imgBorder"
-          @click="checkedImg(item.id)"
-        >
+        <div v-for="(item, i) in imgArr" :key="i" class="imgBorder" @click="checkedImg(item.id)">
           <el-image :src="item.path"></el-image>
           <div>
             <div class="checkedImg" v-if="imgIndex.indexOf(item.id) != -1">
@@ -41,13 +26,7 @@
         </div>
       </el-main>
       <el-footer>
-        <Pagination
-          :total="total"
-          v-model:page="page"
-          v-model:size="size"
-          :layout="'prev, pager, next'"
-          @pagination="getListData"
-        />
+        <Pagination :total="total" v-model:page="page" v-model:size="size" :layout="'prev, pager, next'" @pagination="getListData" />
       </el-footer>
     </el-container>
   </div>
