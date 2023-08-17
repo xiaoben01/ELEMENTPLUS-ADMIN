@@ -19,7 +19,7 @@
         <div v-for="(item, i) in imgArr" :key="i" class="imgBorder" @click="checkedImg(item.id)">
           <el-image :src="item.path"></el-image>
           <div>
-            <div class="checkedImg" v-if="imgIndex.indexOf(item.id) != -1">
+            <div class="checkedImg" v-if="imgIndex.indexOf(item.id) !== -1">
               <el-icon class="op0"><Check /></el-icon>
             </div>
           </div>

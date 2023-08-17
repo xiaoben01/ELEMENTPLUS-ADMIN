@@ -25,14 +25,7 @@ export default defineConfig(({ command, mode }) => {
       VueSetupExtend(),
       eslint({
         // eslint要检查的文件
-        include: [
-          'src/**/*.ts',
-          'src/**/*.js',
-          'src/**/*.vue',
-          'src/*.ts',
-          'src/*.js',
-          'src/*.vue'
-        ]
+        include: ['src/**/*.ts', 'src/**/*.js', 'src/**/*.vue', 'src/*.ts', 'src/*.js', 'src/*.vue']
       }),
       ElementPlus({
         useSource: true
@@ -54,8 +47,7 @@ export default defineConfig(({ command, mode }) => {
       // 打包进度条
       progress({
         // 自定义进度条的格式
-        format:
-          '正在打包 [:bar] 进度: :percent | 用时: :elapsed 秒 | 预计完成: :eta 秒',
+        format: '正在打包 [:bar] 进度: :percent | 用时: :elapsed 秒 | 预计完成: :eta 秒',
         // 进度条的宽度
         width: 15,
         // 完成后的字符
@@ -74,7 +66,7 @@ export default defineConfig(({ command, mode }) => {
       // 生成压缩包gz
       viteCompression({
         verbose: true, // 输出压缩成功
-        disable: false, // 是否禁用
+        disable: true, // 是否禁用
         deleteOriginFile: false, // 删除源文件
         threshold: 10240, // 体积大于阈值会被压缩，单位是b
         algorithm: 'gzip', // 压缩算法
@@ -93,16 +85,7 @@ export default defineConfig(({ command, mode }) => {
       },
       // 导入时想要省略的扩展名列表
       // 不建议使用 .vue 影响IDE和类型支持
-      extensions: [
-        '.mjs',
-        '.js',
-        '.ts',
-        '.jsx',
-        '.tsx',
-        '.json',
-        '.scss',
-        '.css'
-      ]
+      extensions: ['.mjs', '.js', '.ts', '.jsx', '.tsx', '.json', '.scss', '.css']
     },
     css: {
       // 指定传递给 css 预处理器的选项
@@ -173,11 +156,7 @@ export default defineConfig(({ command, mode }) => {
           // 最小化拆分包
           manualChunks(id) {
             if (id.includes('node_modules')) {
-              return id
-                .toString()
-                .split('node_modules/')[1]
-                .split('/')[0]
-                .toString();
+              return id.toString().split('node_modules/')[1].split('/')[0].toString();
             }
           },
           // 用于命名代码拆分时创建的共享块的输出命名
@@ -191,14 +170,7 @@ export default defineConfig(({ command, mode }) => {
       }
     },
     optimizeDeps: {
-      include: [
-        'vue',
-        'vue-router',
-        'element-plus/es/locale/lang/zh-cn',
-        'element-plus/es/locale/lang/en',
-        '@vueuse/core',
-        'axios'
-      ]
+      include: ['vue', 'vue-router', 'element-plus/es/locale/lang/zh-cn', 'element-plus/es/locale/lang/en', '@vueuse/core', 'axios']
     }
   };
 });
