@@ -60,7 +60,8 @@ const useStore = defineStore({
                   affix: item.affix,
                   noTags: item.noTags,
                   open: item.open,
-                  activeMenu: item.activeMenu
+                  activeMenu: item.activeMenu,
+                  isShow: item.isShow
                 }
               };
             });

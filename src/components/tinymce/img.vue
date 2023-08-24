@@ -35,7 +35,6 @@
 <script setup lang="ts">
 import { onMounted, computed, ref } from 'vue';
 import { getImglist, saveImg, delImg, getImgByIds } from '@/common/api';
-import Pagination from '@/components/pagination/index.vue';
 import { UploadRawFile, UploadProps, ElMessage } from 'element-plus';
 import { useRoute } from 'vue-router';
 // 获取路由

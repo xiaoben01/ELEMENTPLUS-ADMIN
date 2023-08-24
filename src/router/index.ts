@@ -28,6 +28,7 @@ import constant from './modules/constant';
 //   // 这在某些场景非常有用，比如：一个文章的列表页路由为：/article/list
 //   // 点击文章进入文章详情页，这时候路由为/article/1，但你想在侧边栏高亮文章列表的路由，就可以进行如下设置
 //   activeMenu: '/article/list'
+//   isShow: true // 是否显示父级页面
 // }
 
 // 静态路由

@@ -35,7 +35,6 @@
 <script setup lang="ts">
 import { onMounted, computed, ref } from 'vue';
 import { getImglist, delImg, getImgByIds, getToken } from '@/common/api';
-import Pagination from '@/components/pagination/index.vue';
 import { UploadRawFile, UploadProps, ElMessage } from 'element-plus';
 
 const props = defineProps({

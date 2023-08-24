@@ -80,6 +80,8 @@ export interface PermissionMenuData {
   activeMenu: string;
   // 菜单权限
   roles: string[];
+  // 是否显示父级页面
+  isShow: boolean;
 }
 
 /**

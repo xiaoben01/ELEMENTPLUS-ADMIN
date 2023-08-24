@@ -18,7 +18,8 @@ export default [
     affix: 0,
     noTags: 0,
     open: 0,
-    activeMenu: ''
+    activeMenu: '',
+    isShow: 1
   },
   {
     id: 1001,
@@ -34,7 +35,8 @@ export default [
     affix: 0,
     noTags: 0,
     open: 0,
-    activeMenu: ''
+    activeMenu: '',
+    isShow: 1
   },
   {
     id: 2000,
@@ -53,7 +55,8 @@ export default [
     noCache: 0,
     noTags: 0,
     open: 0,
-    redirect: '/pugin/index'
+    redirect: '/pugin/index',
+    isShow: 1
   },
   {
     id: 2001,
@@ -72,7 +75,8 @@ export default [
     noCache: 0,
     noTags: 0,
     open: 0,
-    redirect: ''
+    redirect: '',
+    isShow: 1
   },
   {
     id: 2002,
@@ -91,7 +95,8 @@ export default [
     noCache: 0,
     noTags: 0,
     open: 0,
-    redirect: ''
+    redirect: '',
+    isShow: 1
   },
   {
     id: 2003,
@@ -110,7 +115,8 @@ export default [
     noCache: 0,
     noTags: 0,
     open: 0,
-    redirect: ''
+    redirect: '',
+    isShow: 1
   },
   {
     id: 2004,
@@ -129,7 +135,8 @@ export default [
     noCache: 0,
     noTags: 0,
     open: 0,
-    redirect: ''
+    redirect: '',
+    isShow: 1
   },
   {
     id: 2005,
@@ -148,7 +155,8 @@ export default [
     noCache: 0,
     noTags: 0,
     open: 0,
-    redirect: ''
+    redirect: '',
+    isShow: 1
   },
   {
     id: 2006,
@@ -167,6 +175,7 @@ export default [
     noCache: 0,
     noTags: 0,
     open: 0,
-    redirect: ''
+    redirect: '',
+    isShow: 1
   }
 ];
