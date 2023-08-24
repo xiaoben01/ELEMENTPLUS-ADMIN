@@ -21,7 +21,6 @@
 <script setup lang="ts">
 import { ref, onMounted } from 'vue';
 import { getList } from '@/common/api';
-import Pagination from '@/components/pagination/index.vue';
 // 类型定义
 interface TableData {
   id: number;

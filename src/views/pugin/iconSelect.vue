@@ -13,7 +13,6 @@
 </template>
 <script lang="ts" setup>
 import { ref } from 'vue';
-import IconSelect from '@/components/iconSelect/index.vue';
 const iconName = ref('Camera');
 </script>
 <style lang="scss" scoped></style>

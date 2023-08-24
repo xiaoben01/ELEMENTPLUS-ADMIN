@@ -149,5 +149,24 @@ export default [
     noTags: 0,
     open: 0,
     redirect: ''
+  },
+  {
+    id: 2006,
+    parentId: 2000,
+    sort: 6,
+    path: 'echart',
+    component: 'pugin/echart',
+    name: 'PuginEchart',
+    title: 'echart图表',
+    icon: '',
+    activeMenu: '',
+    affix: 0,
+    alwaysShow: 0,
+    breadcrumb: 1,
+    hidden: 0,
+    noCache: 0,
+    noTags: 0,
+    open: 0,
+    redirect: ''
   }
 ];

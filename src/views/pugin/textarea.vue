@@ -19,7 +19,6 @@
 import { reactive, computed } from 'vue';
 // 引入状态管理
 import useStore from '@/store';
-import Tinymce from '@/components/tinymce/index.vue';
 // 状态管理
 const { settings } = useStore();
 

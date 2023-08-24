@@ -43,6 +43,7 @@ declare module '@vue/runtime-core' {
     ElUpload: typeof import('element-plus/es')['ElUpload']
     IconSelect: typeof import('./src/components/iconSelect/index.vue')['default']
     Img: typeof import('./src/components/tinymce/img.vue')['default']
+    MyEchart: typeof import('./src/components/echarts/MyEchart.vue')['default']
     Pagination: typeof import('./src/components/pagination/index.vue')['default']
     Qrcode: typeof import('./src/components/qrcode/qrcode.vue')['default']
     RouterLink: typeof import('vue-router')['RouterLink']

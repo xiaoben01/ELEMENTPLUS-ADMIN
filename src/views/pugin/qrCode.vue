@@ -19,7 +19,6 @@
 <script setup lang="ts">
 import { ref } from 'vue';
 import { ElLoading } from 'element-plus';
-import QrcodeImg from '@/components/qrcode/qrcode.vue';
 // 弹窗状态
 const dialogTableVisible = ref(false);
 // 二维码地址

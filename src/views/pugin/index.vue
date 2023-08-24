@@ -39,7 +39,6 @@
 import { reactive, computed, ref } from 'vue';
 // 引入状态管理
 import useStore from '@/store';
-import uploadImg from '@/components/upload/img.vue';
 // 状态管理
 const { settings } = useStore();
 
