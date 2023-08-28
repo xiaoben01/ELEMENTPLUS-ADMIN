@@ -10,7 +10,7 @@
       </el-card>
       <!--  二维码相关  -->
       <el-dialog v-model="dialogTableVisible" :close-on-click-modal="false" :before-close="handleClose" title="二维码" width="300px">
-        <QrcodeImg :qr-text="codeData.url" :size="200" :title="codeData.title" />
+        <Qrcode :qr-text="codeData.url" :size="200" :title="codeData.title" />
       </el-dialog>
     </div>
   </div>

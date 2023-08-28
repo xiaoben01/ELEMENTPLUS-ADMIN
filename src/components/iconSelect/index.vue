@@ -6,7 +6,7 @@
   <div ref="iconSelectorRef" class="iconselect-container">
     <el-input v-model="inputValue" readonly placeholder="点击选择图标" @click="visible = !visible">
       <template #prepend>
-        <el-icon><component :is="inputValue" /></el-icon>
+        <el-icon v-if="inputValue"><component :is="inputValue" /></el-icon>
       </template>
     </el-input>
 
@@ -67,6 +67,7 @@ const iconSelectorDialogRef = ref();
 const loadIcons = function (): void {
   const icons = ElementPlusIconsVue;
   for (const icon in icons) {
+    console.log(icon);
     allIconNames.push(icon);
   }
   filterIconNames.value = allIconNames;

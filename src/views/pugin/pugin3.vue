@@ -12,15 +12,16 @@
           <el-table-column prop="name" label="Name" />
           <el-table-column prop="address" label="Address" />
         </el-table>
-        <Pagination :total="total" v-model:page="page" v-model:size="limit" @pagination="getListData" />
+        <Pagination :total="listQuery.total" v-model:page="listQuery.page" v-model:size="listQuery.limit" @pagination="getListData" />
       </el-card>
     </div>
   </div>
 </template>
 
 <script setup lang="ts">
-import { ref, onMounted } from 'vue';
+import { ref, onMounted, reactive } from 'vue';
 import { getList } from '@/common/api';
+import router from '@/router';
 // 类型定义
 interface TableData {
   id: number;
@@ -30,17 +31,24 @@ interface TableData {
 }
 // 初始化tableData
 const tableData = ref<TableData[]>([]);
-const total = ref(0);
-const page = ref(1);
-const limit = ref(15);
+// 初始化listQuery
+const listQuery = reactive({
+  total: 0,
+  page: 1,
+  limit: 15
+});
 // 获取列表
 onMounted(async () => {
-  getListData();
+  // 判断当前路由是否是当前页面
+  if (router.currentRoute.value.name === 'PuginPugin3') {
+    getListData();
+  }
 });
 const getListData = async (): Promise<any> => {
-  const res = await getList({ page: page.value, limit: limit.value }, 'table');
+  console.log(listQuery);
+  const res = await getList(listQuery, 'table');
   tableData.value = res.data;
-  total.value = res.total;
+  listQuery.total = res.total;
 };
 </script>
 

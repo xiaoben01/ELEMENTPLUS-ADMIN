@@ -6,13 +6,13 @@
   <div class="container">
     <el-container>
       <el-header height="40px">
-        <el-upload action="https://upload-z2.qiniup.com" :show-file-list="false" :before-upload="handleBeforeUpload" :on-success="handleSuccess" :data="upParma">
-          <el-button type="primary" size="small">上传图片</el-button>
+        <el-upload :action="upload_path" :show-file-list="false" :before-upload="handleBeforeUpload" :on-success="handleSuccess" :data="upParma">
+          <el-button type="primary" :size="formSize">上传图片</el-button>
         </el-upload>
         <div>
-          <el-button type="warning" size="small" @click="emptying">清空选项</el-button>
-          <el-button type="success" size="small" @click="useImg">确认使用</el-button>
-          <el-button type="danger" size="small" @click="del">删除</el-button>
+          <el-button type="warning" :size="formSize" @click="emptying">清空选项</el-button>
+          <el-button type="success" :size="formSize" @click="useImg">确认使用</el-button>
+          <el-button type="danger" :size="formSize" @click="del">删除</el-button>
         </div>
       </el-header>
       <el-main>
@@ -37,6 +37,14 @@ import { onMounted, computed, ref } from 'vue';
 import { getImglist, saveImg, delImg, getImgByIds } from '@/common/api';
 import { UploadRawFile, UploadProps, ElMessage } from 'element-plus';
 import { useRoute } from 'vue-router';
+// 引入状态管理
+import useStore from '@/store';
+// 状态管理
+const { settings } = useStore();
+// 获取formSize状态
+const formSize = computed(() => settings().formSize);
+// 上传路径
+const upload_path = import.meta.env.VITE_BUILD_UPLOAD_URL;
 // 获取路由
 const route = useRoute();
 // 获取url参数
