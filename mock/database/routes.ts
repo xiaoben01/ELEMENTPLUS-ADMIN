@@ -177,5 +177,25 @@ export default [
     open: 0,
     redirect: '',
     isShow: 1
+  },
+  {
+    id: 2007,
+    parentId: 2000,
+    sort: 7,
+    path: 'pugin7',
+    component: 'pugin/pugin7',
+    name: 'PuginPugin7',
+    title: '批量生成二维码并下载',
+    icon: '',
+    activeMenu: '',
+    affix: 0,
+    alwaysShow: 0,
+    breadcrumb: 1,
+    hidden: 0,
+    noCache: 0,
+    noTags: 0,
+    open: 0,
+    redirect: '',
+    isShow: 1
   }
 ];
