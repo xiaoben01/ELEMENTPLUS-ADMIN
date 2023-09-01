@@ -28,7 +28,18 @@ service.interceptors.request.use(
 service.interceptors.response.use(
   (response) => {
     const data = response.data;
-    if (data.code !== 200) {
+    if (data.code === 401) {
+      ElMessage({
+        message: data.msg || 'Error',
+        type: 'error'
+      });
+      // 延迟 500 毫秒跳转登录页
+      setTimeout(() => {
+        // 删除 token 并跳转登录页
+        storage.remove(setting.tokenName, 'session');
+        location.reload();
+      });
+    } else if (data.code !== 200) {
       ElMessage({
         message: data.msg || 'Error',
         type: 'error'
