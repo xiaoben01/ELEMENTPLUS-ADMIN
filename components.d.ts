@@ -7,11 +7,14 @@ export {}
 
 declare module '@vue/runtime-core' {
   export interface GlobalComponents {
+    CheckboxSkuForm: typeof import('./src/components/CheckboxSkuForm/index.vue')['default']
     ElAvatar: typeof import('element-plus/es')['ElAvatar']
     ElBreadcrumb: typeof import('element-plus/es')['ElBreadcrumb']
     ElBreadcrumbItem: typeof import('element-plus/es')['ElBreadcrumbItem']
     ElButton: typeof import('element-plus/es')['ElButton']
     ElCard: typeof import('element-plus/es')['ElCard']
+    ElCheckbox: typeof import('element-plus/es')['ElCheckbox']
+    ElCheckboxGroup: typeof import('element-plus/es')['ElCheckboxGroup']
     ElContainer: typeof import('element-plus/es')['ElContainer']
     ElDialog: typeof import('element-plus/es')['ElDialog']
     ElDivider: typeof import('element-plus/es')['ElDivider']
@@ -40,6 +43,7 @@ declare module '@vue/runtime-core' {
     ElSwitch: typeof import('element-plus/es')['ElSwitch']
     ElTable: typeof import('element-plus/es')['ElTable']
     ElTableColumn: typeof import('element-plus/es')['ElTableColumn']
+    ElTag: typeof import('element-plus/es')['ElTag']
     ElTooltip: typeof import('element-plus/es')['ElTooltip']
     ElUpload: typeof import('element-plus/es')['ElUpload']
     IconSelect: typeof import('./src/components/iconSelect/index.vue')['default']
@@ -49,6 +53,7 @@ declare module '@vue/runtime-core' {
     Qrcode: typeof import('./src/components/qrcode/qrcode.vue')['default']
     RouterLink: typeof import('vue-router')['RouterLink']
     RouterView: typeof import('vue-router')['RouterView']
+    SkuForm: typeof import('./src/components/SkuForm/index.vue')['default']
     Tinymce: typeof import('./src/components/tinymce/index.vue')['default']
     UploadImg: typeof import('./src/components/upload/uploadImg.vue')['default']
   }

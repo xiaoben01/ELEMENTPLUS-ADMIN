@@ -67,7 +67,6 @@ const iconSelectorDialogRef = ref();
 const loadIcons = function (): void {
   const icons = ElementPlusIconsVue;
   for (const icon in icons) {
-    console.log(icon);
     allIconNames.push(icon);
   }
   filterIconNames.value = allIconNames;
