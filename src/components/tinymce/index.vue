@@ -49,12 +49,12 @@ const props = defineProps({
   },
   plugins: {
     type: [String, Array],
-    default: 'lists table fullscreen'
+    default: 'accordion anchor charmap code emoticons fullscreen insertdatetime link nonbreaking pagebreak preview searchreplace table visualblocks visualchars wordcount'
   }, //必填
   toolbar: {
     type: [String, Array],
     default:
-      'searchreplace bold italic underline strikethrough | alignleft aligncenter alignright | outdent indent | fontsizeselect styleselect | blockquote undo redo | removeformat subscript superscript | code codesample | meeting | hr bullist | numlist link | charmap preview anchor pagebreak insertdatetime | table | emoticons | forecolor backcolor | fullscreen'
+      'undo redo | searchreplace | blocks | fontfamily | fontsize | link meeting | bold italic underline strikethrough | align numlist bullist | table | lineheight outdent indent| forecolor backcolor removeformat | charmap emoticons | code fullscreen preview | save print | pagebreak anchor codesample | ltr rtl | visualblocks visualchars | insertdatetime | nonbreaking | accordion accordionremove | wordcount'
   } //必填
 });
 //用于接收外部传递进来的富文本
@@ -126,7 +126,7 @@ onMounted(async () => {
 const handle = (event: any): void => {
   // 防止同一页面引入多个编辑器时，出现多次执行的情况
   if (props.name === event.data.name) {
-    window.removeEventListener('message', handle);
+    // window.removeEventListener('message', handle);
     // 接收从子窗口发送的消息
     const data = event.data.content;
     // 执行相关操作
