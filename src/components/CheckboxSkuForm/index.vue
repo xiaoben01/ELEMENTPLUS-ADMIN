@@ -30,15 +30,17 @@
       </el-table-column>
       <el-table-column v-for="(item, index) in props.structure" :label="item.label" :key="index">
         <template #default="scope">
+          <div v-if="item.type === 'input-number'">
+            <el-input-number :size="formSize" :min="0" v-model="submitList[scope.$index][item.key]" :precision="item.precision" controls-position="right" :disabled="item.disabled" />
+          </div>
           <div v-if="item.type === 'input'">
-            <el-input-number v-if="item.key === 'price'" :min="0" v-model="submitList[scope.$index].value[item.key]" :precision="2" controls-position="right" />
-            <el-input-number v-else v-model="submitList[scope.$index].value[item.key]" size="small" />
+            <el-input v-model="submitList[scope.$index][item.key]" :disabled="item.disabled" :size="formSize" />
           </div>
           <div v-else-if="item.type === 'select'">
-            <el-select v-if="item.key === 'matterCodes'" v-model="submitList[scope.$index].value[item.key]" multiple collapse-tags filterable clearable placeholder="请选择物料">
+            <el-select :size="formSize" v-if="item.precision > 0" v-model="submitList[scope.$index][item.key]" multiple collapse-tags filterable clearable placeholder="请选择物料">
               <el-option v-for="optionItem in props.matterCodesList" :key="optionItem.code" :label="optionItem.title" :value="optionItem.code" />
             </el-select>
-            <el-select v-else v-model="submitList[scope.$index].value[item.key]" filterable clearable placeholder="请选择物料">
+            <el-select :size="formSize" v-else v-model="submitList[scope.$index][item.key]" filterable clearable placeholder="请选择物料">
               <el-option v-for="optionItem in props.matterCodesList" :key="optionItem.code" :label="optionItem.title" :value="optionItem.code" />
             </el-select>
           </div>
@@ -49,7 +51,8 @@
 </template>
 
 <script setup lang="ts">
-import { ref, reactive, watch } from 'vue';
+import { ref, reactive, watch, computed } from 'vue';
+import useStore from '@/store';
 // ------------类型----------------
 interface SpecData {
   specList: { label: string; tags: [] }[];
@@ -65,6 +68,8 @@ interface StructureItemType {
   key: string;
   type: string;
   label: string;
+  disabled: boolean;
+  precision: number;
 }
 interface Children {
   id: number;
@@ -127,6 +132,8 @@ const props = defineProps({
   }
 });
 // ------------变量----------------
+const { settings } = useStore();
+const formSize = computed(() => settings().formSize);
 const tableSkuList = ref([]); // table显示数量和显示值
 const submitList = ref<SubmitList>([]);
 const specData = reactive<SpecData>({ specList: [], skuValue: {} });
@@ -139,18 +146,12 @@ watch(
   () => [props.sourceAttribute, props.option, props.submitList],
   () => {
     if (props.sourceAttribute.length > 0) {
-      // 将(全选)checkAll数组长度设置为props.sourceAttribute的长度，并赋值为false
       checkAll.value = new Array(props.sourceAttribute.length).fill(false);
-      // 将()isIndeterminate数组长度设置为props.sourceAttribute的长度，并赋值为false
       isIndeterminate.value = new Array(props.sourceAttribute.length).fill(true);
-      // 循环props.sourceAttribute
       props.sourceAttribute.forEach((item: any) => {
-        // 将checkboxSelect.value[item.name]数组长度设置为item.children的长度，并赋值为[]
         checkboxSelect.value[item.name] = [];
-        // 获取item.children下的所有name，id值，赋值给specList
         const specList = item.children.map((child: { name: any }) => child.name).flat();
         specData.specList.push({ label: item.name, tags: specList });
-        // 循环item的子集，然后把子集的值赋值给skuValue
         item.children.forEach((t: any) => {
           if (!specData.skuValue[item.name]) {
             specData.skuValue[item.name] = [t.name];
@@ -160,7 +161,6 @@ watch(
         });
       });
       if (props.option.length > 0) {
-        // 循环props.option，判断是否有值，如果有值就赋值给checkboxSelect
         props.option.forEach((item: any) => {
           for (const key in item) {
             item[key].forEach((t: any) => {
@@ -185,18 +185,12 @@ watch(
 const handleCheckAllChange = (val: boolean, index: number, label: string): void => {
   checkboxSelect.value[label] = val ? specData.specList[index].tags : [];
   isIndeterminate.value[index] = false;
-  // 选中值变更后重新设置tableSKU
   tableSKU(checkboxSelect.value);
 };
 function handleCheckedCitiesChange(index: number, label: string): void {
-  // 获取当前选中数量
   const checkedCount = checkboxSelect.value[label].length;
-  // 判断当前选中数量是否等于当前规格的数量
   checkAll.value[index] = checkedCount === specData.specList[index].tags.length;
-  // 判断当前选中数量是否大于0并且小于当前规格的数量,如果是则设置isIndeterminate为true
   isIndeterminate.value[index] = checkedCount > 0 && checkedCount < specData.specList[index].tags.length;
-  // console.log(checkboxSelect.value);
-  // 选中值变更后重新设置tableSKU
   tableSKU(checkboxSelect.value);
 }
 function tableSKU(skuObj: { [x: string]: any }): void {
@@ -228,20 +222,16 @@ function tableSKU(skuObj: { [x: string]: any }): void {
       const hader = tableHader[i];
       if (hader) {
         count.value += 1;
-        //防止输入的价格和库存数量丢失
         const oldSpec: any = submitList.value?.[index];
         if (oldSpec) {
-          //如果有就是给之前的值
           Object.assign(skuObj.value, {
             id: oldSpec.id || oldSpec._value?.id || 0,
             [`skuName${count.value}`]: hader,
             [`skuValue${count.value}`]: el[hader],
-            // 判断oldSpec.price是否存在,如果存在就是给之前的值，判断oldSpec._value.price是否存在,如果存在就是给之前的值，否则就是0
             price: oldSpec.price || oldSpec._value?.price || 0,
             matterCodes: oldSpec.matterCodes || oldSpec._value?.matterCodes || []
           });
         } else {
-          //如果没有就是正常的给普通的值
           Object.assign(skuObj.value, {
             id: 0,
             [`skuName${count.value}`]: hader,
@@ -252,14 +242,12 @@ function tableSKU(skuObj: { [x: string]: any }): void {
         }
       }
     }
-    specItems.push(skuObj);
+    specItems.push(skuObj.value);
   }
   submitList.value = specItems;
-  // 使用emit触发父组件的selectSku事件
   emit('select-sku', submitList.value);
   return temp;
 }
-// -----------function-----------------
 </script>
 
 <style lang="scss" scoped></style>

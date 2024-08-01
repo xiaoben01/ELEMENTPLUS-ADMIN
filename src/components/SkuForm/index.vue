@@ -54,17 +54,21 @@
       </el-table-column>
       <el-table-column v-for="(item, index) in props.structure" :label="item.label" :key="index">
         <template #default="scope">
-          <div v-if="item.type === 'input'">
+          <div v-if="item.type === 'input-number'">
             <el-input-number
               v-if="item.key === 'rewardPercent'"
               :size="formSize"
               :min="0"
               :max="1"
-              v-model="submitList[scope.$index].value[item.key]"
+              v-model="submitList[scope.$index][item.key]"
               :precision="item.precision"
               controls-position="right"
+              :disabled="item.disabled"
             />
-            <el-input-number v-else :size="formSize" :min="0" v-model="submitList[scope.$index].value[item.key]" :precision="item.precision" controls-position="right" />
+            <el-input-number v-else :size="formSize" :min="0" v-model="submitList[scope.$index][item.key]" :precision="item.precision" controls-position="right" />
+          </div>
+          <div v-if="item.type === 'input'">
+            <el-input v-model="submitList[scope.$index][item.key]" :disabled="item.disabled" :size="formSize" />
           </div>
         </template>
       </el-table-column>
@@ -93,6 +97,7 @@ interface StructureItemType {
   type: string;
   label: string;
   precision: number;
+  disabled: boolean;
 }
 interface Children {
   id: number;
@@ -276,9 +281,10 @@ function tableSKU(skuObj: { [x: string]: any }): void {
         Object.assign(skuObj.value, arr);
       }
     }
-    specItems.push(skuObj);
+    specItems.push(skuObj.value);
   }
   submitList.value = specItems;
+  console.log(submitList.value);
   emit('select-sku', submitList.value);
   return temp;
 }

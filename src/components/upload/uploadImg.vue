@@ -34,7 +34,7 @@
 
 <script setup lang="ts">
 import { onMounted, computed, ref } from 'vue';
-import { getImglist, delImg, getImgByIds, getToken } from '@/common/api';
+import { getImglist, delImg, getImgByIds, getToken, saveImg } from '@/common/api';
 import { UploadRawFile, UploadProps, ElMessage } from 'element-plus';
 // 引入状态管理
 import useStore from '@/store';
@@ -71,6 +71,10 @@ const emit = defineEmits(['selected-img']);
  */
 const handleSuccess: UploadProps['onSuccess'] = async (response) => {
   // 上传API调用
+  // 判断upload_path是否含有http或者https
+  if (upload_path.indexOf('http') !== -1 && upload_path.indexOf('https') !== -1) {
+    await saveImg({ path: response.key });
+  }
   page.value = 1;
   getListData();
 };

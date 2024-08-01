@@ -40,6 +40,14 @@ export function getAllData(dbname: string): Promise<any> {
   });
 }
 
+// 根据某列获取所有数据
+export function getAllDataByColumn(column: string, val: string | number, dbname: string): Promise<any> {
+  return request({
+    url: `/common/getAllDataByColumn/${column}/${val}/${dbname}`,
+    method: 'post'
+  });
+}
+
 // 删除数据
 export function del(ids: number | string, dbname: string): Promise<any> {
   return request({
@@ -55,5 +63,14 @@ export function setColumnValByKey(id: number, data: any, dbname: string): Promis
     url: `/common/setColumnValByKey/${id}/${dbname}`,
     method: 'post',
     data: data
+  });
+}
+
+//根据ID获取地址名
+export function getAddressNameByIds(ids: any): Promise<any> {
+  return request({
+    url: `/common/getAddressNameByIds`,
+    method: 'post',
+    data: { ids: ids }
   });
 }

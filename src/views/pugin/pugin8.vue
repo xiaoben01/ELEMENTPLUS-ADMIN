@@ -22,27 +22,30 @@ const sku = ref<any>([]);
 const structure = [
   {
     key: 'score',
-    type: 'input',
+    type: 'input-number',
     label: '积分',
-    precision: 0
+    precision: 0,
+    disabled: false
   },
   {
     key: 'price',
-    type: 'input',
+    type: 'input-number',
     label: '价格',
-    precision: 2
+    precision: 2,
+    disabled: false
   },
   {
     key: 'stock',
-    type: 'input',
+    type: 'input-number',
     label: '库存',
-    precision: 0
+    precision: 0,
+    disabled: false
   }
 ];
 /**********  方法  **********/
 const selectSku = (data: any): void => {
   sku.value = data;
-  console.log(sku.value[0].value);
+  console.log(sku.value);
 };
 </script>
 

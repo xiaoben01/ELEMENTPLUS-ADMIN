@@ -38,12 +38,16 @@ const structure = [
   {
     key: 'matterCodes',
     type: 'select',
-    label: '物料'
+    label: '物料',
+    disabled: false,
+    precision: 1
   },
   {
     key: 'price',
-    type: 'input',
-    label: '价格'
+    type: 'input-number',
+    label: '价格',
+    disabled: false,
+    precision: 2
   }
 ];
 onMounted(async () => {

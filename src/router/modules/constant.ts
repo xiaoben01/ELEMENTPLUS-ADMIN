@@ -56,7 +56,8 @@ export default [
       title: '首页',
       icon: 'House',
       affix: true,
-      alwaysShow: true
+      alwaysShow: true,
+      isShow: true
     },
     children: [
       {
@@ -66,7 +67,8 @@ export default [
         meta: {
           title: '控制台',
           // icon: 'House',
-          affix: true
+          affix: true,
+          isShow: true
         }
       }
     ]

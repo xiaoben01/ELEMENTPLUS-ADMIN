@@ -13,7 +13,7 @@
               {{ setting.title }}
             </div>
           </div>
-          <el-form ref="loginFormRef" size="large" :model="loginForm" :rules="loginFormRules">
+          <el-form ref="loginFormRef" size="large" :model="loginForm" :rules="loginFormRules" @keyup.enter="handelLogin(loginFormRef)">
             <el-form-item prop="username">
               <el-input placeholder="用户名" v-model="loginForm.username">
                 <template #prefix>
@@ -41,7 +41,7 @@
 <script setup lang="ts">
 import { ref, watch, reactive } from 'vue';
 import { useRouter } from 'vue-router';
-import type { FormInstance, FormRules } from 'element-plus';
+import { ElLoading, type FormInstance, type FormRules } from 'element-plus';
 import useStore from '@/store';
 import setting from '@/common/setting';
 
@@ -95,6 +95,11 @@ const handelLogin = async (formEl: FormInstance | undefined): Promise<any> => {
   if (!formEl) {
     return;
   }
+  const loading = ElLoading.service({
+    lock: true,
+    text: 'Loading',
+    background: 'rgba(0, 0, 0, 0.7)'
+  });
   await formEl.validate((valid, fields) => {
     if (valid) {
       user()
@@ -103,12 +108,17 @@ const handelLogin = async (formEl: FormInstance | undefined): Promise<any> => {
           password: loginForm.password
         })
         .then((res: any) => {
-          // console.log('登录成功', res);
           router.push({
             path: redirect.value || '/',
             query: otherQuery.value
           });
+          loading.close();
+        })
+        .catch((err: any) => {
+          loading.close();
         });
+    } else {
+      loading.close();
     }
   });
 };

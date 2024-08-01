@@ -37,17 +37,11 @@ import { onMounted, computed, ref } from 'vue';
 import { getImglist, saveImg, delImg, getImgByIds } from '@/common/api';
 import { UploadRawFile, UploadProps, ElMessage } from 'element-plus';
 import { useRoute } from 'vue-router';
-// 引入状态管理
 import useStore from '@/store';
-// 状态管理
 const { settings } = useStore();
-// 获取formSize状态
 const formSize = computed(() => settings().formSize);
-// 上传路径
 const upload_path = import.meta.env.VITE_BUILD_UPLOAD_URL;
-// 获取路由
 const route = useRoute();
-// 获取url参数
 const name: string = route.params.name as string;
 const props = defineProps({
   limit: {
@@ -57,7 +51,6 @@ const props = defineProps({
 });
 const upParma = ref({ token: '' });
 const limit = computed(() => props.limit);
-// 默认选中的图片id
 const imgIndex = ref<number[]>([]);
 /**
  * 图片上传成功回调
@@ -65,8 +58,9 @@ const imgIndex = ref<number[]>([]);
  * @param params
  */
 const handleSuccess: UploadProps['onSuccess'] = async (response) => {
-  // 上传API调用
-  await saveImg({ path: response.key });
+  if (upload_path.indexOf('http') !== -1 && upload_path.indexOf('https') !== -1) {
+    await saveImg({ path: response.key });
+  }
   page.value = 1;
   getListData();
 };
@@ -120,13 +114,10 @@ const useImg = (): void => {
   getImgByIds({ ids: imgIndex.value.join(',') })
     .then((res) => {
       if (res.code === 200) {
-        console.log('发送消息');
-        // 获取选中的值
         const data = {
           content: res.data,
           name: name
         };
-        // 将对象传递给父组件
         window.parent.postMessage(data, '*');
       }
     })
@@ -134,14 +125,9 @@ const useImg = (): void => {
       console.log(err);
     });
 };
-// 列表默认总数
 const total = ref(0);
-// 当前页
 const page = ref(1);
-// 每页条数
 const size = ref(15);
-
-// 获取数据
 onMounted(async () => {
   getListData();
 });
@@ -149,12 +135,9 @@ interface Img {
   id: number;
   path: string;
 }
-// 图片列表
 const imgArr = ref<Img[]>([]);
-// 获取数据
 const getListData = async (): Promise<any> => {
   const res = await getImglist({ page: page.value, limit: size.value });
-  // 删除 imgArr.value 中原有的属性值
   imgArr.value = [];
   Object.assign(imgArr.value, res.data);
   total.value = res.total;
