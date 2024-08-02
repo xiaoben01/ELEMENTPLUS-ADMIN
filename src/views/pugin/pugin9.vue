@@ -13,6 +13,7 @@
           :option="[option]"
           :structure="structure"
           :submit-list="sumitList"
+          :cup-max="cupMax"
           @select-sku="selectSku"
         />
       </el-card>
@@ -28,19 +29,41 @@ interface Matter {
   code: string;
   id: number;
   title: string;
+  unit: string;
+  unitPrice: number;
 }
 /**********  变量  **********/
 const sourceAttribute = ref<any>([]);
 const sumitList = ref([]);
 const sku = ref<any>([]);
 const option = ref<any>([]);
+const cupMax = ref<number>(400);
 const structure = [
+  // {
+  //   key: 'matterCodes',
+  //   type: 'select',
+  //   label: '物料',
+  //   disabled: false,
+  //   precision: 1
+  // },
   {
-    key: 'matterCodes',
-    type: 'select',
-    label: '物料',
-    disabled: false,
-    precision: 1
+    key: 'totalML',
+    type: 'input-number',
+    label: '总容量',
+    disabled: true,
+    precision: 0
+  },
+  {
+    key: 'totalPrice',
+    type: 'input-number',
+    label: '成本价',
+    disabled: true,
+    precision: 4
+  },
+  {
+    key: 'matterJson',
+    type: 'json',
+    label: '物料'
   },
   {
     key: 'price',
@@ -56,19 +79,39 @@ onMounted(async () => {
 // 定义物料列表
 const matterCodesList = ref<Matter[]>([
   {
+    code: 'TeaCup',
+    id: 9,
+    title: '杯',
+    unitPrice: 0.3,
+    unit: '个'
+  },
+  {
     code: 'CoffeMatter11',
     id: 8,
-    title: '咖啡豆'
+    title: '咖啡豆',
+    unitPrice: 0.5,
+    unit: 'ml'
   },
   {
     code: 'CoffeMatter10',
     id: 7,
-    title: '牛奶'
+    title: '牛奶',
+    unitPrice: 0.5,
+    unit: 'ml'
   },
   {
     code: 'CoffeMatter6',
     id: 6,
-    title: '白砂糖'
+    title: '白砂糖',
+    unitPrice: 0.5,
+    unit: 'ml'
+  },
+  {
+    code: 'TeaCover',
+    id: 5,
+    title: '盖',
+    unitPrice: 0.4,
+    unit: '个'
   }
 ]);
 

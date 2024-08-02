@@ -44,9 +44,27 @@
               <el-option v-for="optionItem in props.matterCodesList" :key="optionItem.code" :label="optionItem.title" :value="optionItem.code" />
             </el-select>
           </div>
+          <div v-else-if="item.type === 'json'">
+            <div class="card-header">
+              <div>
+                <p v-for="item1 in submitList[scope.$index][item.key]" :key="item1.code">{{ item1.title }}{{ item1.num }}{{ item1.unit }}</p>
+              </div>
+              <div>
+                <el-button :size="formSize" @click="addMatterJson(scope.$index, item.key)" type="success">添加物料</el-button>
+              </div>
+            </div>
+          </div>
         </template>
       </el-table-column>
     </el-table>
+    <matterSelect
+      v-model:isShow="matterParams.isShow"
+      :cup-max="props.cupMax"
+      :matter-json="matterParams.matterJson"
+      :matter-codes-list="matterCodesList"
+      @update:is-show="handleUpdateIsShow"
+      @selected-matter="useMatter"
+    />
   </div>
 </template>
 
@@ -85,6 +103,12 @@ interface MatterCodesList {
   code: string;
   id: number;
   title: string;
+}
+interface NewArr {
+  index: number | string;
+  name: string;
+  totalNum: string;
+  totalPrice: string;
 }
 // ------------类型----------------
 const props = defineProps({
@@ -129,6 +153,10 @@ const props = defineProps({
   matterCodesList: {
     type: Array as () => MatterCodesList[],
     default: () => []
+  },
+  cupMax: {
+    type: Number,
+    default: () => 0
   }
 });
 // ------------变量----------------
@@ -141,6 +169,16 @@ const checkAll = ref<any>([]);
 const isIndeterminate = ref<any>([]);
 const checkboxSelect = ref<CheckboxSelect>({});
 const emit = defineEmits(['select-sku']);
+const matterParams = ref({
+  isShow: false,
+  matterJson: []
+});
+const newArr = reactive<NewArr>({
+  index: '',
+  name: '',
+  totalNum: 'totalML',
+  totalPrice: 'totalPrice'
+});
 // ------------变量----------------
 watch(
   () => [props.sourceAttribute, props.option, props.submitList],
@@ -248,6 +286,23 @@ function tableSKU(skuObj: { [x: string]: any }): void {
   emit('select-sku', submitList.value);
   return temp;
 }
+const addMatterJson = (index: number | string | any, name: string): void => {
+  matterParams.value.matterJson = submitList.value[index][name];
+  newArr.index = index;
+  newArr.name = name;
+  matterParams.value.isShow = true;
+};
+
+/** 物料插件方法   */
+const handleUpdateIsShow = (val: boolean): void => {
+  matterParams.value.isShow = false;
+};
+const useMatter = (matterJson: any, totalML: number, totalPrice: number): void => {
+  submitList.value[newArr.index][newArr.name] = matterJson;
+  submitList.value[newArr.index][newArr.totalNum] = totalML;
+  submitList.value[newArr.index][newArr.totalPrice] = totalPrice;
+  matterParams.value.isShow = false;
+};
 </script>
 
 <style lang="scss" scoped></style>
