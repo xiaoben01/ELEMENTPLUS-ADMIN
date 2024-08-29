@@ -42,7 +42,6 @@ const props = defineProps({
     default: 400
   }
 });
-console.log(props);
 //下载二维码图片
 const downQr = (): void => {
   // let name = new Date().getTime();

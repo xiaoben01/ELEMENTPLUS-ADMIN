@@ -45,7 +45,6 @@ const structure = [
 /**********  方法  **********/
 const selectSku = (data: any): void => {
   sku.value = data;
-  console.log(sku.value);
 };
 </script>
 

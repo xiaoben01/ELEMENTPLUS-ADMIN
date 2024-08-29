@@ -33,7 +33,7 @@ export default [
     url: '/admin-api/common/getAdminInfo',
     method: 'get',
     response: (config: any) => {
-      const { token } = config.query;
+      const token = config.headers['x-token'];
       const info = users[token];
       if (!info) {
         return {
@@ -55,7 +55,7 @@ export default [
     url: '/admin-api/role/getAllControllers',
     method: 'get',
     response: (config: any) => {
-      const { token } = config.query;
+      const token = config.headers['x-token'];
       const info = users[token];
       if (!info) {
         return {
@@ -75,7 +75,7 @@ export default [
   },
   {
     url: '/admin-api/file/getList',
-    method: 'post',
+    method: 'get',
     response: (config: any) => {
       const token = config.headers['x-token'];
       const info = users[token];
@@ -87,20 +87,22 @@ export default [
           data: null
         };
       }
-      const { page, limit } = config.body;
+      const { page, pageSize } = config.query;
       return {
         code: 200,
         status: 'success',
         msg: '获取成功！',
         // 分页
-        data: pictureList.slice((page - 1) * limit, page * limit),
-        total: pictureList.length
+        data: {
+          list: pictureList.slice((page - 1) * pageSize, page * pageSize),
+          total: pictureList.length
+        }
       };
     }
   },
   {
-    url: '/admin-api/file/getImgByIds',
-    method: 'post',
+    url: `/admin-api/file/getImgByIds/:id`,
+    method: 'get',
     response: (config: any) => {
       const token = config.headers['x-token'];
       const info = users[token];
@@ -112,7 +114,7 @@ export default [
           data: null
         };
       }
-      const { ids } = config.body;
+      const ids = config.query.id.split(',').map((id: string) => parseInt(id.trim()));
       return {
         code: 200,
         status: 'success',
@@ -173,7 +175,7 @@ export default [
   },
   {
     url: '/admin-api/common/getList/table',
-    method: 'post',
+    method: 'get',
     response: (config: any) => {
       const token = config.headers['x-token'];
       const info = users[token];
@@ -185,14 +187,16 @@ export default [
           data: null
         };
       }
-      const { page, limit } = config.body;
+      const { page, pageSize } = config.query;
       return {
         code: 200,
         status: 'success',
         msg: '获取成功！',
         // 分页
-        data: table.slice((page - 1) * limit, page * limit),
-        total: table.length
+        data: {
+          list: table.slice((page - 1) * pageSize, page * pageSize),
+          total: table.length
+        }
       };
     }
   },

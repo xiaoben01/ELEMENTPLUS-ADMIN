@@ -5,10 +5,10 @@
 import { defineStore } from 'pinia';
 import type { UserState } from '@/types/store';
 import setting from '@/common/setting';
-import { login, logout, getInfo } from '@/common/api';
 import { storage } from '@/common/utils';
 import { resetRouter } from '@/router';
 import tags from './tags';
+import service from '@/common/request/http';
 
 const useStore = defineStore({
   id: 'user',
@@ -48,7 +48,8 @@ const useStore = defineStore({
     // 登录
     login(value: any) {
       return new Promise((resolve, reject) => {
-        login(value)
+        service
+          .post(`/dologin`, value)
           .then((res: any) => {
             this.setToken(res.data);
             resolve(res.data);
@@ -62,9 +63,8 @@ const useStore = defineStore({
     // 获取用户信息
     getInfo() {
       return new Promise((resolve, reject) => {
-        getInfo({
-          token: this.token
-        })
+        service
+          .get(`common/getAdminInfo`)
           .then(async (res: any) => {
             const data = res.data;
             this.setInfo(data);
@@ -79,21 +79,12 @@ const useStore = defineStore({
 
     // 注销
     logout() {
-      return new Promise((resolve, reject) => {
-        logout()
-          .then((res: any) => {
-            storage.remove(setting.tokenName, 'session');
-            this.setReset();
-            this.setInfo(null);
-            this.setRoles([]);
-            resetRouter();
-            tags().delAllTags();
-            resolve(res.data);
-          })
-          .catch((error) => {
-            reject(error);
-          });
-      });
+      storage.remove(setting.tokenName, 'session');
+      this.setReset();
+      this.setInfo(null);
+      this.setRoles([]);
+      resetRouter();
+      tags().delAllTags();
     },
 
     // 清除 Token

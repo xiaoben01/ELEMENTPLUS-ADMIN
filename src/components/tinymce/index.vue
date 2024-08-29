@@ -93,17 +93,13 @@ const init = reactive({
           url: '#/img/' + props.name,
           width: 630,
           height: 540,
-          onClose: function () {
-            // 在这里执行您想要的操作
-            console.log('窗口已关闭');
-          }
+          onClose: function () {}
         });
         centerDialogVisible.value = true;
       }
     });
   }
 });
-//监听外部传递进来的的数据变化
 watch(
   () => props.value,
   () => {
@@ -111,29 +107,21 @@ watch(
     emits('get-content', myValue.value);
   }
 );
-//监听富文本中的数据变化
 watch(
   () => myValue.value,
   () => {
     emits('get-content', myValue.value);
   }
 );
-//在onMounted中初始化编辑器
 onMounted(async () => {
   tinymce.init({});
 });
-// 获取七牛云地址
 const handle = (event: any): void => {
-  // 防止同一页面引入多个编辑器时，出现多次执行的情况
-  if (props.name === event.data.name) {
-    // window.removeEventListener('message', handle);
-    // 接收从子窗口发送的消息
+  if (props.name === event.data.name && window.tinymce.get(tinymceId.value)) {
     const data = event.data.content;
-    // 执行相关操作
     data.forEach((v: { path: any }) => {
       window.tinymce.activeEditor.insertContent(`<img class="wscnph" src="` + `${v.path}" >`);
     });
-    // 关闭弹窗
     window.tinymce.get(tinymceId.value).windowManager.close();
   }
 };

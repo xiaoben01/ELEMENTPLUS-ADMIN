@@ -52,7 +52,6 @@ router.beforeEach(async (to, from, next) => {
             next({ ...to, replace: true });
           }
         } catch (error) {
-          console.log(error);
           // 移除 token 并跳转登录页
           await user().resetToken();
           ElMessage.error('Has Error');

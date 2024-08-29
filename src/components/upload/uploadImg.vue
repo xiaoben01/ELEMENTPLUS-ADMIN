@@ -6,7 +6,7 @@
   <div class="container">
     <el-container>
       <el-header height="40px">
-        <el-upload :action="upload_path" :show-file-list="false" :before-upload="handleBeforeUpload" :on-success="handleSuccess" :data="upParma">
+        <el-upload :headers="headers" :action="upload_path" :show-file-list="false" :before-upload="handleBeforeUpload" :on-success="handleSuccess" :data="upParma">
           <el-button type="primary" :size="formSize">上传图片</el-button>
         </el-upload>
         <div>
@@ -26,23 +26,24 @@
         </div>
       </el-main>
       <el-footer>
-        <Pagination :total="total" v-model:page="page" v-model:size="size" :layout="'prev, pager, next'" @pagination="getListData" />
+        <Pagination :total="listQuery.total" v-model:page="listQuery.page" v-model:size="listQuery.pageSize" :layout="'prev, pager, next'" @pagination="getListData" />
       </el-footer>
     </el-container>
   </div>
 </template>
 
 <script setup lang="ts">
-import { onMounted, computed, ref } from 'vue';
-import { getImglist, delImg, getImgByIds, getToken, saveImg } from '@/common/api';
+/**  引用 */
+import { onMounted, computed, ref, reactive } from 'vue';
 import { UploadRawFile, UploadProps, ElMessage } from 'element-plus';
-// 引入状态管理
 import useStore from '@/store';
-// 状态管理
+import service from '@/common/request/http';
+import { Picture } from '@/types/index';
+import { storage } from '@/common/utils';
+import setting from '@/common/setting';
+/**  变量 */
 const { settings } = useStore();
-// 获取formSize状态
 const formSize = computed(() => settings().formSize);
-// 上传路径
 const upload_path = import.meta.env.VITE_BUILD_UPLOAD_URL;
 const props = defineProps({
   limit: {
@@ -59,29 +60,32 @@ const props = defineProps({
   }
 });
 const upParma = ref({ token: '' });
+const headers = ref({ 'X-Token': '' });
 const limit = computed(() => props.limit);
-// 默认选中的图片id
 const imgIndex = ref<number[]>([]);
-// 回调函数
 const emit = defineEmits(['selected-img']);
-/**
- * 图片上传成功回调
- *
- * @param params
- */
-const handleSuccess: UploadProps['onSuccess'] = async (response) => {
-  // 上传API调用
-  // 判断upload_path是否含有http或者https
+const listQuery = reactive({
+  total: 0,
+  page: 1,
+  pageSize: 15
+});
+const imgArr = ref<Picture[]>([]);
+/**  方法 */
+onMounted(async () => {
+  getListData();
   if (upload_path.indexOf('http') !== -1 && upload_path.indexOf('https') !== -1) {
-    await saveImg({ path: response.key });
+    getQiniuToken();
   }
-  page.value = 1;
+});
+const handleSuccess: UploadProps['onSuccess'] = async (response) => {
+  if (upload_path.indexOf('http') !== -1 && upload_path.indexOf('https') !== -1) {
+    await service.post(`file/upload`, {
+      path: response.key
+    });
+  }
+  listQuery.page = 1;
   getListData();
 };
-
-/**
- * 限制用户上传文件的格式和大小
- */
 const handleBeforeUpload = function (file: UploadRawFile): boolean {
   if (file.size > 2 * 1048 * 1048) {
     ElMessage.warning('上传图片不能大于2M');
@@ -91,44 +95,49 @@ const handleBeforeUpload = function (file: UploadRawFile): boolean {
     ElMessage.warning('请上传正确的图片格式');
     return false;
   }
+  //往headers中添加token
+  headers.value['X-Token'] = storage.get(setting.tokenName, 'session');
   return true;
 };
-/**
- * 清空选项
- */
 const emptying = (): void => {
   imgIndex.value = [];
 };
-/**
- * 删除
- */
 const del = async (): Promise<any> => {
   if (imgIndex.value.length === 0) {
     ElMessage.warning('请选择要删除的图片');
     return false;
   }
-  const res = await delImg({ ids: imgIndex.value.join(',') });
-  if (res.code === 200) {
-    ElMessage.success(res.msg);
-    imgIndex.value = [];
-    page.value = 1;
-    getListData();
-  } else {
-    ElMessage.warning('请求异常');
-  }
+  const ids = imgIndex.value.join(',');
+  return new Promise((resolve, reject) => {
+    service
+      .delete(`file/delImg/${ids}`)
+      .then((resp: any) => {
+        if (resp.code === 200) {
+          ElMessage.success(resp.msg);
+          imgIndex.value = [];
+          listQuery.page = 1;
+          getListData();
+        } else {
+          ElMessage.warning('请求异常');
+        }
+        resolve(resp);
+      })
+      .catch((error) => {
+        reject(error);
+      });
+  });
 };
-/**
- * 使用图片
- */
 const useImg = (): void => {
   if (imgIndex.value.length === 0) {
     ElMessage.warning('请选择要使用的图片');
     return;
   }
-  getImgByIds({ ids: imgIndex.value.join(',') })
-    .then((res) => {
+  const ids = imgIndex.value.join(',');
+  service
+    .get(`file/getImgByIds/${ids}`)
+    .then((res: any) => {
       if (res.code === 200) {
-        ElMessage.success(res.msg);
+        // ElMessage.success(res.msg);
         if (limit.value === 1) {
           emit('selected-img', res.data, props.name, props.paths, true);
         } else {
@@ -140,37 +149,16 @@ const useImg = (): void => {
       console.log(err);
     });
 };
-// 列表默认总数
-const total = ref(0);
-// 当前页
-const page = ref(1);
-// 每页条数
-const size = ref(15);
-
-// 获取数据
-// 获取数据
-onMounted(async () => {
-  getListData();
-  getQiniuToken();
-});
-// 获取七牛云token
 const getQiniuToken = async (): Promise<any> => {
-  const res = await getToken();
+  const res = await service.get(`file/getQiniuToken`);
   upParma.value.token = res.data;
 };
-interface Img {
-  id: number;
-  path: string;
-}
-// 图片列表
-const imgArr = ref<Img[]>([]);
-// 获取数据
 const getListData = async (): Promise<any> => {
-  const res = await getImglist({ page: page.value, limit: size.value });
-  // 删除 imgArr.value 中原有的属性值
-  imgArr.value = [];
-  Object.assign(imgArr.value, res.data);
-  total.value = res.total;
+  const res = await service.get(`file/getList`, {
+    params: listQuery
+  });
+  imgArr.value = res.data.list;
+  listQuery.total = res.data.total;
 };
 const checkedImg = (i: number): void => {
   if (limit.value === 1) {
@@ -209,21 +197,5 @@ const checkedImg = (i: number): void => {
   display: flex;
   align-items: center;
   justify-content: space-between;
-}
-.checkedImg {
-  position: absolute;
-  right: 10px;
-  top: 10px;
-  font-size: 20px;
-  color: #ffffff;
-  background: rgba(6, 247, 54, 0.815);
-  opacity: 0.7;
-  height: 20px;
-  width: 20px;
-  line-height: 20px;
-  text-align: center;
-}
-.op0 {
-  opacity: 1;
 }
 </style>

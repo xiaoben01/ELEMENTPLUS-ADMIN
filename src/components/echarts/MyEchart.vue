@@ -29,7 +29,6 @@ onMounted(() => {
 watch(
   () => props.options,
   () => {
-    console.log('options changed');
     chart?.setOption({
       ...props.options
     });

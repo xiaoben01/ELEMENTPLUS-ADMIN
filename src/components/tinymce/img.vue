@@ -6,7 +6,7 @@
   <div class="container">
     <el-container>
       <el-header height="40px">
-        <el-upload :action="upload_path" :show-file-list="false" :before-upload="handleBeforeUpload" :on-success="handleSuccess" :data="upParma">
+        <el-upload :headers="headers" :action="upload_path" :show-file-list="false" :before-upload="handleBeforeUpload" :on-success="handleSuccess" :data="upParma">
           <el-button type="primary" :size="formSize">上传图片</el-button>
         </el-upload>
         <div>
@@ -26,18 +26,27 @@
         </div>
       </el-main>
       <el-footer>
-        <Pagination :total="total" v-model:page="page" v-model:size="size" :layout="'prev, pager, next'" @pagination="getListData" />
+        <Pagination :total="listQuery.total" v-model:page="listQuery.page" v-model:size="listQuery.pageSize" :layout="'prev, pager, next'" @pagination="getListData" />
       </el-footer>
     </el-container>
   </div>
 </template>
 
 <script setup lang="ts">
-import { onMounted, computed, ref } from 'vue';
-import { getImglist, saveImg, delImg, getImgByIds } from '@/common/api';
+/** 引用  */
+import { onMounted, computed, ref, reactive } from 'vue';
 import { UploadRawFile, UploadProps, ElMessage } from 'element-plus';
 import { useRoute } from 'vue-router';
 import useStore from '@/store';
+import service from '@/common/request/http';
+import { storage } from '@/common/utils';
+import setting from '@/common/setting';
+/** 类型  */
+interface Img {
+  id: number;
+  path: string;
+}
+/**  变量 */
 const { settings } = useStore();
 const formSize = computed(() => settings().formSize);
 const upload_path = import.meta.env.VITE_BUILD_UPLOAD_URL;
@@ -50,24 +59,31 @@ const props = defineProps({
   }
 });
 const upParma = ref({ token: '' });
+const headers = ref({ 'X-Token': '' });
 const limit = computed(() => props.limit);
 const imgIndex = ref<number[]>([]);
-/**
- * 图片上传成功回调
- *
- * @param params
- */
+const listQuery = reactive({
+  total: 0,
+  page: 1,
+  pageSize: 15
+});
+const imgArr = ref<Img[]>([]);
+/**  方法 */
+onMounted(async () => {
+  getListData();
+  if (upload_path.indexOf('http') !== -1 && upload_path.indexOf('https') !== -1) {
+    getQiniuToken();
+  }
+});
 const handleSuccess: UploadProps['onSuccess'] = async (response) => {
   if (upload_path.indexOf('http') !== -1 && upload_path.indexOf('https') !== -1) {
-    await saveImg({ path: response.key });
+    await service.post(`file/upload`, {
+      path: response.key
+    });
   }
-  page.value = 1;
+  listQuery.page = 1;
   getListData();
 };
-
-/**
- * 限制用户上传文件的格式和大小
- */
 const handleBeforeUpload = function (file: UploadRawFile): boolean {
   if (file.size > 2 * 1048 * 1048) {
     ElMessage.warning('上传图片不能大于2M');
@@ -77,47 +93,54 @@ const handleBeforeUpload = function (file: UploadRawFile): boolean {
     ElMessage.warning('请上传正确的图片格式');
     return false;
   }
+  //往headers中添加token
+  headers.value['X-Token'] = storage.get(setting.tokenName, 'session');
   return true;
 };
-/**
- * 清空选项
- */
 const emptying = (): void => {
   imgIndex.value = [];
 };
-/**
- * 删除
- */
 const del = async (): Promise<any> => {
   if (imgIndex.value.length === 0) {
     ElMessage.warning('请选择要删除的图片');
     return false;
   }
-  const res = await delImg({ ids: imgIndex.value.join(',') });
-  if (res.code === 200) {
-    ElMessage.success(res.msg);
-    imgIndex.value = [];
-    page.value = 1;
-    getListData();
-  } else {
-    ElMessage.warning('请求异常');
-  }
+  const ids = imgIndex.value.join(',');
+  return new Promise((resolve, reject) => {
+    service
+      .delete(`file/delImg/${ids}`)
+      .then((resp: any) => {
+        if (resp.code === 200) {
+          ElMessage.success(resp.msg);
+          imgIndex.value = [];
+          listQuery.page = 1;
+          getListData();
+        } else {
+          ElMessage.warning('请求异常');
+        }
+        resolve(resp);
+      })
+      .catch((error) => {
+        reject(error);
+      });
+  });
 };
-/**
- * 使用图片
- */
 const useImg = (): void => {
   if (imgIndex.value.length === 0) {
     ElMessage.warning('请选择要使用的图片');
     return;
   }
-  getImgByIds({ ids: imgIndex.value.join(',') })
-    .then((res) => {
+  const ids = imgIndex.value.join(',');
+  service
+    .get(`file/getImgByIds/${ids}`)
+    .then((res: any) => {
       if (res.code === 200) {
+        // 获取选中的值
         const data = {
           content: res.data,
           name: name
         };
+        // 将对象传递给父组件
         window.parent.postMessage(data, '*');
       }
     })
@@ -125,22 +148,16 @@ const useImg = (): void => {
       console.log(err);
     });
 };
-const total = ref(0);
-const page = ref(1);
-const size = ref(15);
-onMounted(async () => {
-  getListData();
-});
-interface Img {
-  id: number;
-  path: string;
-}
-const imgArr = ref<Img[]>([]);
+const getQiniuToken = async (): Promise<any> => {
+  const res = await service.get(`file/getQiniuToken`);
+  upParma.value.token = res.data;
+};
 const getListData = async (): Promise<any> => {
-  const res = await getImglist({ page: page.value, limit: size.value });
-  imgArr.value = [];
-  Object.assign(imgArr.value, res.data);
-  total.value = res.total;
+  const res = await service.get(`file/getList`, {
+    params: listQuery
+  });
+  imgArr.value = res.data.list;
+  listQuery.total = res.data.total;
 };
 const checkedImg = (i: number): void => {
   if (limit.value === 1) {
@@ -179,21 +196,5 @@ const checkedImg = (i: number): void => {
   display: flex;
   align-items: center;
   justify-content: space-between;
-}
-.checkedImg {
-  position: absolute;
-  right: 10px;
-  top: 10px;
-  font-size: 20px;
-  color: #ffffff;
-  background: rgba(6, 247, 54, 0.815);
-  opacity: 0.7;
-  height: 20px;
-  width: 20px;
-  line-height: 20px;
-  text-align: center;
-}
-.op0 {
-  opacity: 1;
 }
 </style>

@@ -284,7 +284,6 @@ function tableSKU(skuObj: { [x: string]: any }): void {
     specItems.push(skuObj.value);
   }
   submitList.value = specItems;
-  console.log(submitList.value);
   emit('select-sku', submitList.value);
   return temp;
 }

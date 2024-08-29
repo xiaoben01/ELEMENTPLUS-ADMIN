@@ -6,8 +6,8 @@ import { defineStore } from 'pinia';
 import { RouteRecordRaw } from 'vue-router';
 import router, { constantRoutes } from '@/router';
 import type { PermissionState, PermissionMenuData } from '@/types/store';
-import { getRoutes } from '@/common/api';
 import { formatRouter, filterAsyncRoutes } from '@/common/utils';
+import service from '@/common/request/http';
 
 const useStore = defineStore({
   id: 'permission',
@@ -36,10 +36,10 @@ const useStore = defineStore({
     // 获取路由数据并生成路由菜单
     generateRoutes(token: string, roles: string[]) {
       return new Promise((resolve, reject) => {
-        getRoutes({ token })
+        service
+          .get(`/role/getAllControllers`)
           .then((res: any) => {
             const data: any = res.data || [];
-
             // 处理菜单数据
             const dataMap = data.map((item: PermissionMenuData) => {
               return {
@@ -68,10 +68,8 @@ const useStore = defineStore({
 
             // 格式化路由
             const routes = formatRouter(dataMap);
-
             // 根据角色权限过虑动态路由
             const routerMap = filterAsyncRoutes(routes, roles);
-
             // 添加路由
             routerMap.forEach((item: any) => {
               router.addRoute(item);
